@@ -1,5 +1,7 @@
 # Projeto de Onboard de Felipe Shiraishi
 
+Hello World com React Native em Typescript
+
 ## Descrição do projeto
 
 Este é o projeto de onboarding de Felipe Shiraishi na Taqtile.
