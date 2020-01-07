@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 
 export const H1 = styled.Text`
-    flex: 1;
+    height: 45px;
+    width: 100%;
+    margin-bottom: 9px;
+    margin-bottom: 9px;
+    border-color: #FFF;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 36px;
+    background-color: #FFF;
 `;

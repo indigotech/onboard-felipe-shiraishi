@@ -6,8 +6,10 @@ export interface IStyledTextInput
 }
 
 export const StyledTextInput = styled.TextInput`
-    flex: 1;
-    border-color: #000000;
+    width: 100%;
+    height: 45px;
+    margin-top: 18px;
+    margin-bottom: 18px;
     border-width: 2px;
     border-radius: 4px;
 `;
