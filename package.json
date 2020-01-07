@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/styled-components": "^4.4.1",
+    "styled-components": "^4.4.1"
+  }
+}

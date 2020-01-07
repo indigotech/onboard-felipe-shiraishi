@@ -26,6 +26,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import PrimaryButton from './atomic/atm/atm.button/button.component';
+import { string } from 'prop-types';
+
 declare var global: {HermesInternal: null | {}};
 
 const App = () => {
@@ -44,6 +47,7 @@ const App = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
+              <PrimaryButton text={"Log in"}></PrimaryButton>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.tsx</Text> to change
