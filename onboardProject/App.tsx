@@ -28,6 +28,7 @@ import {
 
 import PrimaryButton from './atomic/atm/atm.button/button.component';
 import {H1} from './atomic/atm/atm.typo/typo.style'
+import { TextField } from './atomic/atm/atm.input/input.component'
 import { string } from 'prop-types';
 
 declare var global: {HermesInternal: null | {}};
@@ -44,13 +45,11 @@ const App = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <H1>Bem-vindo(a) à Taqtile!</H1>
-              <PrimaryButton text={"Log in"}></PrimaryButton>
             </View>
             <View style={styles.sectionContainer}>
-              
-            </View>
-            <View style={styles.sectionContainer}>
-              
+              <TextField placeholder={"Nome de usuário"}/>
+              <TextField secure={true} placeholder={""}/>
+              <PrimaryButton text={"Log in"}/>
             </View>
           </View>
         </ScrollView>

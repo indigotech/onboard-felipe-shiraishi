@@ -8,7 +8,7 @@ export interface IPrimaryButton
     text: string;
 }
 
-const PrimaryButton = (props:IPrimaryButton) => 
+export const PrimaryButton = (props:IPrimaryButton) => 
 {
     return (
         <StyledButton>
