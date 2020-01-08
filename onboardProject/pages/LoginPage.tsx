@@ -10,7 +10,7 @@ export const LoginPage = () =>
         <View
             style = {{
                 flex: 1,
-                margin: 16,
+                padding: 16,
                 justifyContent: "center",
                 alignContent: "center",
                 backgroundColor: "#FFF"
@@ -19,7 +19,7 @@ export const LoginPage = () =>
             <H1>Bem-vindo(a) à Taqtile!</H1>
             <TextField placeholder={"Nome de usuário"}/>
             <TextField secure={true} placeholder={"Senha"}/>
-            <PrimaryButton text={"Log in"}/>
+            <PrimaryButton label="Log in"/>
         </View>
     )
 }; export default LoginPage

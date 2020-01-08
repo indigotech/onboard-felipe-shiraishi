@@ -7,6 +7,6 @@ export const H1 = styled.Text`
     margin-bottom: 9px;
     border-color: #FFF;
     font-weight: bold;
-    font-size: 36px;
+    font-size: 30px;
     background-color: #FFF;
 `;

@@ -1,9 +1,28 @@
 import styled from 'styled-components'
 
-export const StyledButton = styled.View`
-    height: 45px;
-    width: 80%;
-    background-color: #FFF;
+export const StyledButtonContainer = styled.View`
+    height: auto;
+    width: 60%;
     margin: 2px;
-    align-self: center
+    align-self: center;
 `;
+
+export const StyledButton = styled.TouchableOpacity`
+    width: 100%;
+    color: #FFF;
+    background-color: #156927;
+    border-radius: 6px;
+    height: 50px;
+    padding: 6px;
+    justify-content:center;
+`;
+
+export const StyledText = styled.Text`
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    font-size: 18px;
+    text-align: center;
+    flex: 1;
+`;
+

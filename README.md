@@ -16,8 +16,13 @@ Com isso, se utiliza como framework de desenvolvimento mobile o react native.
 
 Se utiliza um template em typescript, uma vez que se trata da linguagem que será utilizada adiante.
 
+Este projeto utiliza:
+
+- styled-components
+
 ## Procedimentos para testar e depurar
 
 Para testar e depurar o projeto, esteja dentro do diretório /onboardProject e execute o seguinte comando:
 
-"npx react-native run-ios"
+"npx react-native run-ios" / "yarn react-native run-ios"
+"npx react-native run-android" / "yarn react-native run-android"

@@ -1,21 +1,20 @@
 import React from 'react'
-import { StyledButton } from './button.style'
-import { Button, View} from 'react-native'
+import { StyledButton, StyledButtonContainer, StyledText } from './button.style'
+import { Text } from 'react-native'
 
 export interface IPrimaryButton 
 {
     onClick?: (event:any) => void;
-    text: string;
+    label: string;
 }
 
 export const PrimaryButton = (props:IPrimaryButton) => 
 {
     return (
-        <StyledButton>
-            <Button
-                title={props.text}
+        <StyledButtonContainer>
+            <StyledButton
                 onPress={() => props.onClick}
-            />
-        </StyledButton>
+            ><StyledText>{props.label}</StyledText></StyledButton>
+        </StyledButtonContainer>
     )
 }; export default PrimaryButton
