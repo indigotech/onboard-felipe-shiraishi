@@ -61,9 +61,13 @@ export const UsersListPage = () =>
                 )
         }
     }
+<<<<<<< HEAD
     
     else{ return PageContainerContent(<LoadingIcon/>) }
 };
+=======
+}
+>>>>>>> Adds Page Routing
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',
