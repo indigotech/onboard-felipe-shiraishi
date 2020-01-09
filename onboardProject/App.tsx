@@ -12,18 +12,14 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginPage from './pages/LoginPage';
-import SuccessPage from 'pages/SuccessPage';
+import UsersListPage from './pages/UsersListPage';
 
 const MainNavigator = createStackNavigator({
-  LoginPage: {screen: LoginPage},
-});
+    Login: {screen: LoginPage},
+    UsersList: {screen: UsersListPage}
+  }
+);
 
 const App = createAppContainer(MainNavigator);
-
-// const App = () => {
-//   return (
-//     <LoginPage/>
-//   );
-// };
 
 export default App;
