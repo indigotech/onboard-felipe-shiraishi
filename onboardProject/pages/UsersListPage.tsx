@@ -56,8 +56,7 @@ export const UsersListPage = () =>
             </PageContainer>
         )
     }
-    
-};
+}
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',
