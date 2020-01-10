@@ -56,6 +56,7 @@ export const UsersListPage = () =>
         }
         else{
             return (
+<<<<<<< HEAD
                 PageContainerContent(
                     <List data={data} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
                 )
@@ -69,6 +70,16 @@ export const UsersListPage = () =>
 }
 >>>>>>> Adds Page Routing
 
+=======
+                <PageContainer>
+                    <H1>Usuários</H1>
+                    <H1>Ops! Não há usuários!</H1>
+                </PageContainer>
+            )
+            }
+        }   
+};
+>>>>>>> Starts pagination feature
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',
