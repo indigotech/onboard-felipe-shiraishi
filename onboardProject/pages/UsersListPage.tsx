@@ -39,25 +39,9 @@ export const UsersListPage = () =>
                     <H1>Ops! Não há usuários!</H1>
                 </PageContainer>
             )
-        }
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <List data={data}></List>
-            </PageContainer>
-        )
-    }
-
-    else{
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <LoadingIcon/>
-            </PageContainer>
-        )
-    }
-}
-
+            }
+        }   
+};
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',
