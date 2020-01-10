@@ -46,7 +46,13 @@ export const LoginPage = () =>
                 placeholder={"Senha"}
                 onChangeText={(text:string) => setPassword(text)}
                 />
+<<<<<<< HEAD
             <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap}/>
+=======
+            <PrimaryButton loading={loading} label="Log in" onClick={
+                () => validateLogin({email,password,navigator, onLoad})
+                }/>
+>>>>>>> Add Users list load by graphql
         </PageContainer>
     )
 };
