@@ -15,7 +15,7 @@ export const TextField = (props:TextInputProps) =>
         <StyledTextInput
             secureTextEntry = {props.secure}
             placeholder = {props.placeholder}
-            onChangeText = {(text:string) => props.onChangeText(text)}
+            onChangeText = { props.onChangeText }
         />
     )
 }; export default TextField
