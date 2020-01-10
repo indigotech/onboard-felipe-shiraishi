@@ -26,7 +26,9 @@ export const LoginPage = () =>
                 placeholder={"Senha"}
                 onChangeText={(text:string) => onChangePassword(text)}
                 />
-            <PrimaryButton loading={loading} label="Log in" onClick={() => validateLogin({email,password,navigator,onLoad})}/>
+            <PrimaryButton loading={loading} label="Log in" onClick={
+                () => validateLogin({email,password,navigator, onLoad})
+                }/>
         </PageContainer>
     )
 };
