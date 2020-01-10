@@ -5,6 +5,7 @@ import { TextField } from '../atomic/atm/atm.input/input.component'
 import { AsyncStorage, Alert, NavigatorIOS } from 'react-native';
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { validateLogin } from 'utils/validationUtils';
 =======
 import { NavigationComponent, NavigationNavigator, NavigationScreenProp, NavigationRoute } from 'react-navigation';
@@ -75,6 +76,12 @@ const validatePassword = (password: string) => {
     return valid;
 }
 >>>>>>> Adds Page Routing
+=======
+import {useNavigation} from '../hooks/hooks'
+import gql from 'graphql-tag';
+import { client, _storeData, _fetchData } from '../utils/apollo';
+import { validateLogin } from "../utils/validationUtils"
+>>>>>>> Compliance to last PR
 
 export const LoginPage = () => 
 {

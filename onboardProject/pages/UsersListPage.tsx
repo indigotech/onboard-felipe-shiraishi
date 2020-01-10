@@ -27,7 +27,6 @@ export const UsersListPage = () =>
     const [token, onTokenFetch] = React.useState("");
     const [data, onDataChange] = React.useState<ListProps>();
     const [context, onContextChange] = React.useState<UsersListContext>();
-    let loading = false
 
     useEffect(() => {
         const query = gql`{Users{
