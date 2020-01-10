@@ -13,6 +13,7 @@ export interface UsersListContext{
     headers: RequestHeaders
 }
 
+<<<<<<< HEAD
 const PageContainerContent = (element:Element) =>{
     return (
         <PageContainer>
@@ -36,6 +37,9 @@ const updateContent = (
     })
 }
 
+=======
+<<<<<<< HEAD
+>>>>>>> Starts pagination feature
 export const UsersListPage = () => 
 {
     const [data, onDataChange] = React.useState<ListProps>();
@@ -78,6 +82,45 @@ export const UsersListPage = () =>
             )
             }
         }   
+=======
+export function mountContext (token:string){
+    return({headers: 
+        {
+            Authorization: token
+        }
+    })
+}
+
+export const UsersListPage = () => 
+{
+    const [token, onTokenFetch] = React.useState("");
+    const [data, onDataChange] = React.useState<ListProps>();
+    const [context, onContextChange] = React.useState<UsersListContext>();
+
+    useEffect(() => {
+        const query = gql`{Users{
+                            nodes{
+                                name
+                                email
+                            }
+                        }
+                    }`
+
+        _fetchData("token"
+        ).then(result => (typeof result === "string") ? onTokenFetch(result) : ""
+        ).then(() => onContextChange(mountContext(token))
+        ).then(() => client.query({ query: query, context: context }
+        ).then((result) => onDataChange(result.data.Users.nodes))
+        );
+    });
+
+    return (
+        <PageContainer>
+            <H1>Usuários</H1>
+            { Array.isArray(data) ? <List data={data}></List> : <LoadingIcon/>}
+        </PageContainer>
+    )
+>>>>>>> Starts pagination feature
 };
 >>>>>>> Starts pagination feature
 
