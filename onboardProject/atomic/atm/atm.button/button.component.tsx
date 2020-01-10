@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyledButton, StyledButtonContainer, StyledText } from './button.style'
-import { Text } from 'react-native'
+import { Text, ActivityIndicator } from 'react-native'
+import LoadingIcon from '../atm.loadingIcon/loadingIcon.component'
 
 export interface PrimaryButtonProps 
 {
     onClick: (event:any) => void;
     label: string;
+    loading?: boolean;
 }
 
 export const PrimaryButton = (props:PrimaryButtonProps) => 
@@ -14,7 +16,7 @@ export const PrimaryButton = (props:PrimaryButtonProps) =>
         <StyledButtonContainer>
             <StyledButton
                 onPress={(event:any) => props.onClick(event)}
-            ><StyledText>{props.label}</StyledText></StyledButton>
+    >{ props.loading ? <LoadingIcon/>: <></>}<StyledText>{props.label}</StyledText></StyledButton>
         </StyledButtonContainer>
     )
 }; export default PrimaryButton

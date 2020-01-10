@@ -2,22 +2,31 @@ import React from 'react';
 import PrimaryButton from '../atomic/atm/atm.button/button.component';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
-import { View, Alert, NavigatorIOS } from 'react-native';
+import { AsyncStorage, Alert, NavigatorIOS } from 'react-native';
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 <<<<<<< HEAD
 import { validateLogin } from 'utils/validationUtils';
 =======
 import { NavigationComponent, NavigationNavigator, NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import {useNavigation} from '../hooks/hooks'
+import gql from 'graphql-tag';
+import { client, _storeData, _fetchData } from '../utils/apollo';
 
 interface authPack {
     email: string;
     password: string;
     navigator: NavigationScreenProp<NavigationRoute, any>;
+    onLoad: (loading:boolean) => void;
 };
 
-const validateLogin = (pack:authPack) => {
+ const validateLogin = (pack:authPack) => {
     const minimumSize = (pack.password.length >= 7);
+    let loginSuccess = false;
+
+    const onLoginStatusChange = (state:boolean) => {
+        loginSuccess = state;
+
+    }
 
     if (!validateEmail(pack.email)){
         Alert.alert("Email inválido " + pack.email)
@@ -29,7 +38,26 @@ const validateLogin = (pack:authPack) => {
         Alert.alert("Senha muito curta (7 min.)")
     }
     else{
-        pack.navigator.navigate("UsersList");
+        const mutation = gql`
+        mutation loginMutation {
+            Login(data: 
+              {
+                email: \"${pack.email}\", 
+                password: \"${pack.password}\"
+              })
+              {
+              token
+            }
+          }
+        `
+
+        pack.onLoad(true);
+        onLoginStatusChange(true);
+        client.mutate({mutation: mutation}
+        ).then(result => _storeData("token", result.data.Login.token)
+        ).catch(error => onLoginStatusChange(false)
+        ).then(() => pack.onLoad(false)
+        ).then(() => loginSuccess ? pack.navigator.navigate("UsersList") : Alert.alert("Credenciais inválidas"))
     }
 }
 
@@ -41,7 +69,7 @@ const validateEmail = (email: string) => {
 }
 
 const validatePassword = (password: string) => {
-    const regexValidator = /((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)/;
+    const regexValidator = /(((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)|(.*[0-9].*)((.*[A-Z].*)|(.*[a-z].*)))/;
     const valid = regexValidator.test(password);
     
     return valid;
@@ -52,6 +80,7 @@ export const LoginPage = () =>
 {
     const [email, onChangeEmail] = React.useState("");
     const [password, onChangePassword] = React.useState("");
+    const [loading, onLoad] = React.useState(false);
 
     const navigator = useNavigation();
 
@@ -60,14 +89,16 @@ export const LoginPage = () =>
             <H1>Bem-vindo(a) à Taqtile!</H1>
             <TextField 
                 placeholder={"Nome de usuário"}
-                onChangeText={(text:string) => onChangeEmail(text)}
+                onChangeText={(text:string) => onChangeEmail(text.toLowerCase())}
                 />
             <TextField 
                 secure={true}
                 placeholder={"Senha"}
                 onChangeText={(text:string) => onChangePassword(text)}
                 />
-            <PrimaryButton label="Log in" onClick={() => validateLogin({email,password,navigator})}/>
+            <PrimaryButton loading={loading} label="Log in" onClick={
+                () => validateLogin({email,password,navigator, onLoad})
+                }/>
         </PageContainer>
     )
 };

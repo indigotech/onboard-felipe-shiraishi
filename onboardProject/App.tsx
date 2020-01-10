@@ -13,6 +13,7 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginPage from './pages/LoginPage';
 import UsersListPage from './pages/UsersListPage';
+import { ApolloProvider } from '@apollo/client';
 
 const MainNavigator = createStackNavigator({
     Login: {screen: LoginPage},

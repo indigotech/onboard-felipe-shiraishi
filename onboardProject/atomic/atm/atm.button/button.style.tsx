@@ -15,6 +15,7 @@ export const StyledButton = styled.TouchableOpacity`
     height: 50px;
     padding: 6px;
     justify-content:center;
+    flex-direction: row;
 `;
 
 export const StyledText = styled.Text`
