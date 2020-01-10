@@ -26,6 +26,8 @@ export const List = (props:ListProps) =>
             data={props.data}
             renderItem={renderListEntry}
             keyExtractor = {(item:ListEntryKeyProps,index:number) => index.toString()}
+            onEndReached = {}
+            onEndReachedThreshold = {0.5}
         />
     )
 }; export default List
