@@ -13,10 +13,10 @@ export interface UsersListContext{
     headers: RequestHeaders
 }
 
-<<<<<<< HEAD
 export const UsersListPage = () => 
 {
     const [data, onDataChange] = React.useState<ListProps>();
+    const [offset, onOffsetChange] = React.useState(10);
     const [error, onErrorLoad] = React.useState<Error>();
 
     useEffect(() => {
@@ -41,46 +41,29 @@ export const UsersListPage = () =>
                 </PageContainer>
             )
             }
-        }   
-=======
-export function mountContext (token:string){
-    return({headers: 
-        {
-            Authorization: token
-        }
-    })
-}
-
-export const UsersListPage = () => 
-{
-    const [token, onTokenFetch] = React.useState("");
-    const [data, onDataChange] = React.useState<ListProps>();
-    const [context, onContextChange] = React.useState<UsersListContext>();
-
-    useEffect(() => {
-        const query = gql`{Users{
-                            nodes{
-                                name
-                                email
-                            }
+            return (
+                <PageContainer>
+                    <H1>Usuários</H1>
+                    <List data={data} loadMoreData={() => {
+                        queryUsers(offset).then(result => {
+                            let _data = data.slice(0);
+                            _data = _data.concat(result)
+                            onDataChange(_data);
+                            onOffsetChange(offset + 10);
                         }
-                    }`
-
-        _fetchData("token"
-        ).then(result => (typeof result === "string") ? onTokenFetch(result) : ""
-        ).then(() => onContextChange(mountContext(token))
-        ).then(() => client.query({ query: query, context: context }
-        ).then((result) => onDataChange(result.data.Users.nodes))
-        );
-    });
-
-    return (
-        <PageContainer>
-            <H1>Usuários</H1>
-            { Array.isArray(data) ? <List data={data}></List> : <LoadingIcon/>}
-        </PageContainer>
-    )
->>>>>>> Starts pagination feature
+                        )}}></List>
+                </PageContainer>
+            )
+    }
+    
+    else{
+        return (
+            <PageContainer>
+                <H1>Usuários</H1>
+                <LoadingIcon/>
+            </PageContainer>
+        )
+    }
 };
 
 UsersListPage.navigationOptions = {

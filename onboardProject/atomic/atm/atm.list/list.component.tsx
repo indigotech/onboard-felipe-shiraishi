@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyledList, StyledListEntry } from './list.style';
 import { H2, Subline } from '../atm.typo/typo.style';
+import { queryUsers } from '../../../utils/apollo';
 
 export interface ListProps {
     data: ListEntryKeyProps[];
+    loadMoreData?: () => void;
 }
 
 export interface ListEntryKeyProps{
@@ -17,6 +19,8 @@ export interface ListEntryProps{
 
 export const List = (props:ListProps) => 
 {
+    const [offset, onOffsetChange] = useState(10);
+
     const renderListEntry = ({item}:ListEntryProps) => {
         return <ListEntry email = {item.email} name = {item.name}/>
     };
@@ -26,7 +30,7 @@ export const List = (props:ListProps) =>
             data={props.data}
             renderItem={renderListEntry}
             keyExtractor = {(item:ListEntryKeyProps,index:number) => index.toString()}
-            onEndReached = {}
+            onEndReached = {props.loadMoreData}
             onEndReachedThreshold = {0.5}
         />
     )

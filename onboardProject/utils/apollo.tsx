@@ -1,5 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
 import { AsyncStorage } from "react-native";
+import { ListProps } from "atomic/atm/atm.list/list.component";
 
 export const client = new ApolloClient({
     cache: new InMemoryCache(),
