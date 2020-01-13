@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyledList, StyledListEntry } from './list.style';
 import { H2, Subline } from '../atm.typo/typo.style';
-import { Alert } from 'react-native';
 
 export interface ListProps {
     data: ListEntryKeyProps[];
@@ -18,11 +17,14 @@ export interface ListEntryProps{
 
 export const List = (props:ListProps) => 
 {
+    const renderListEntry = ({item}:ListEntryProps) => {
+        return <ListEntry email = {item.email} name = {item.name}/>
+    };
+
     return (
         <StyledList
             data={props.data}
-            renderItem={({item}:ListEntryProps) => 
-            <ListEntry email = {item.email} name = {item.name}/>}
+            renderItem={renderListEntry}
             keyExtractor = {(item:ListEntryKeyProps,index:number) => index.toString()}
         />
     )

@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
 import { AsyncStorage } from "react-native";
 
 export const client = new ApolloClient({
@@ -8,19 +8,56 @@ export const client = new ApolloClient({
     })
 });
 
-export const _storeData = async (key:string, value:string) => {
+export const storeData = async (key:string, value:string) => {
     try{
         await AsyncStorage.setItem(key, value);
     }
     catch(error){}
 };
 
-export const _fetchData = async (key:string) => {
+export const fetchData = async (key:string) => {
     try{
         const value = await AsyncStorage.getItem(key);
         if (value !== null) {
-            return new Promise(resolve => {resolve(value)});
+            return value;
         }
     }
     catch(error){}
 };
+
+const mountContext = (token:string) => {
+    return({headers: 
+        {
+            Authorization: token
+        }
+    })
+}
+
+export const queryUsers = async (offset: number) => {
+    try{
+        const query = gql`{Users(offset:${offset}, limit:10){
+                    nodes{
+                        name
+                        email
+                    }
+                }
+            }`
+
+        const token = await fetchData("token")
+        if (token){
+            const context = mountContext(token)
+            const result = await client.query({ query: query, context: context })
+            try{
+                const data = result.data.Users.nodes
+                return data
+            }
+            catch (error){
+                return error
+            }
+        }
+        
+    }
+    catch(error){
+        return error
+    }
+}

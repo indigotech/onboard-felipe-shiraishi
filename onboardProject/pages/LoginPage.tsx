@@ -2,7 +2,6 @@ import React from 'react';
 import PrimaryButton from '../atomic/atm/atm.button/button.component';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
-import { View, Alert, NavigatorIOS } from 'react-native';
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import { validateLogin } from '../utils/validationUtils';
 import { useNavigation } from '../hooks/hooks';
