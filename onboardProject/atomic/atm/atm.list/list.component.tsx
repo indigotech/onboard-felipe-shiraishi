@@ -34,8 +34,12 @@ export const List = (props:ListProps) =>
             onEndReached = {props.loadMoreData}
 =======
             keyExtractor = {(item:ListEntryKeyProps,index:number) => index.toString()}
+<<<<<<< HEAD
             onEndReached = {}
 >>>>>>> Starts pagination feature
+=======
+            onEndReached = {props.loadMoreData}
+>>>>>>> Add users pagination
             onEndReachedThreshold = {0.5}
         />
     )

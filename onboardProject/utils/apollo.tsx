@@ -68,5 +68,8 @@ export const queryUsers = async (offset: number) => {
         return error
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Add users pagination
