@@ -29,21 +29,8 @@ export const List = (props:ListProps) =>
         <StyledList
             data={props.data}
             renderItem={renderListEntry}
-<<<<<<< HEAD
-<<<<<<< HEAD
             keyExtractor = {(item:ListEntryKeyProps,index:number) => item.email}
             onEndReached = {props.loadMoreData}
-=======
-            keyExtractor = {(item:ListEntryKeyProps,index:number) => index.toString()}
-<<<<<<< HEAD
-            onEndReached = {}
->>>>>>> Starts pagination feature
-=======
-=======
-            keyExtractor = {(item:ListEntryKeyProps,index:number) => item.email}
->>>>>>> Refactor after pr
-            onEndReached = {props.loadMoreData}
->>>>>>> Add users pagination
             onEndReachedThreshold = {0.5}
         />
     )

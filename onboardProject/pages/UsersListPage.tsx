@@ -13,11 +13,6 @@ export interface UsersListContext{
     headers: RequestHeaders
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Refactor after pr
 const PageContainerContent = (element:Element) =>{
     return (
         <PageContainer>
@@ -41,14 +36,6 @@ const updateContent = (
     })
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> Starts pagination feature
-=======
->>>>>>> Add users pagination
-=======
->>>>>>> Refactor after pr
 export const UsersListPage = () => 
 {
     const [data, onDataChange] = React.useState<ListProps>();
@@ -69,51 +56,14 @@ export const UsersListPage = () =>
         }
         else{
             return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Refactor after pr
                 PageContainerContent(
                     <List data={data} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
                 )
         }
-<<<<<<< HEAD
-    }
-<<<<<<< HEAD
-    
-    else{ return PageContainerContent(<LoadingIcon/>) }
-};
-=======
-}
->>>>>>> Adds Page Routing
-
-=======
-                <PageContainer>
-                    <H1>Usuários</H1>
-                    <H1>Ops! Não há usuários!</H1>
-                </PageContainer>
-            )
-            }
-            return (
-                <PageContainer>
-                    <H1>Usuários</H1>
-                    <List data={data} loadMoreData={() => {
-                        queryUsers(offset).then(result => {
-                            let _data = data.slice(0);
-                            _data = _data.concat(result)
-                            onDataChange(_data);
-                            onOffsetChange(offset + 10);
-                        }
-                        )}}></List>
-                </PageContainer>
-            )
-=======
->>>>>>> Refactor after pr
     }
     
     else{ return PageContainerContent(<LoadingIcon/>) }
 };
->>>>>>> Starts pagination feature
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',

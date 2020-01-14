@@ -68,12 +68,5 @@ export const queryUsers = async (offset: number) => {
         return error
     }
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-=======
->>>>>>> Add users pagination
-=======
-
->>>>>>> Refactor after pr
