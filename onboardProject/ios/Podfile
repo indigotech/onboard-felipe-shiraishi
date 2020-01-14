@@ -39,6 +39,8 @@ target 'onboardProject' do
     # Pods for testing
   end
 
+  pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
+
   use_native_modules!
 end
 

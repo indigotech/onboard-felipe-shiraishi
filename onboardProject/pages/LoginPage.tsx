@@ -3,7 +3,11 @@ import PrimaryButton from '../atomic/atm/atm.button/button.component';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
+<<<<<<< HEAD
 import { validateEmail, validatePassword, requestLogin } from '../utils/validationUtils';
+=======
+import { doLogin } from '../utils/validationUtils';
+>>>>>>> Refactor after pr
 import { useNavigation } from '../hooks/hooks';
 import { Alert } from 'react-native';
 
@@ -50,7 +54,7 @@ export const LoginPage = () =>
             <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap}/>
 =======
             <PrimaryButton loading={loading} label="Log in" onClick={
-                () => validateLogin({email,password,navigator, onLoad})
+                () => doLogin({email,password,navigator, onLoad})
                 }/>
 >>>>>>> Add Users list load by graphql
         </PageContainer>

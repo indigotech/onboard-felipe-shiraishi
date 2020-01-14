@@ -15,6 +15,9 @@ export interface UsersListContext{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Refactor after pr
 const PageContainerContent = (element:Element) =>{
     return (
         <PageContainer>
@@ -38,11 +41,14 @@ const updateContent = (
     })
 }
 
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> Starts pagination feature
 =======
 >>>>>>> Add users pagination
+=======
+>>>>>>> Refactor after pr
 export const UsersListPage = () => 
 {
     const [data, onDataChange] = React.useState<ListProps>();
@@ -64,10 +70,14 @@ export const UsersListPage = () =>
         else{
             return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Refactor after pr
                 PageContainerContent(
                     <List data={data} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
                 )
         }
+<<<<<<< HEAD
     }
 <<<<<<< HEAD
     
@@ -97,16 +107,11 @@ export const UsersListPage = () =>
                         )}}></List>
                 </PageContainer>
             )
+=======
+>>>>>>> Refactor after pr
     }
     
-    else{
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <LoadingIcon/>
-            </PageContainer>
-        )
-    }
+    else{ return PageContainerContent(<LoadingIcon/>) }
 };
 >>>>>>> Starts pagination feature
 
