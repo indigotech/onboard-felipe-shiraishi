@@ -3,7 +3,7 @@ import PrimaryButton from '../atomic/atm/atm.button/button.component';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
-import { validateLogin } from '../utils/validationUtils';
+import { doLogin } from '../utils/validationUtils';
 import { useNavigation } from '../hooks/hooks';
 
 export const LoginPage = () => 
@@ -26,7 +26,9 @@ export const LoginPage = () =>
                 placeholder={"Senha"}
                 onChangeText={(text:string) => onChangePassword(text)}
                 />
-            <PrimaryButton loading={loading} label="Log in" onClick={() => validateLogin({email,password,navigator,onLoad})}/>
+            <PrimaryButton loading={loading} label="Log in" onClick={
+                () => doLogin({email,password,navigator, onLoad})
+                }/>
         </PageContainer>
     )
 };
