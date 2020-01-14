@@ -12,7 +12,7 @@ export interface authPack {
     onLoad: (loading:boolean) => void;
 };
 
-const mountLoginMutation = (email: string, password: string) => {
+export const mountLoginMutation = (email: string, password: string) => {
     return gql`
     mutation loginMutation {
         Login(data: {
@@ -26,7 +26,7 @@ const mountLoginMutation = (email: string, password: string) => {
     `
 }
 
-const requestLogin = async (email:string, password:string) => {
+export const requestLogin = async (email:string, password:string) => {
     const mutation = mountLoginMutation(email, password)
     try{
         const result = await client.mutate({mutation: mutation})
@@ -43,26 +43,7 @@ const requestLogin = async (email:string, password:string) => {
     }
 }
 
- export const doLogin = async (pack:authPack) => {
-    try{
-        const validEmail = validateEmail(pack.email)
-        const validPassword = validatePassword(pack.password)
-
-        if (validEmail && validPassword){
-            pack.onLoad(true);
-            await requestLogin(pack.email, pack.password)
-            pack.onLoad(false)
-            pack.navigator.navigate(UsersList)
-            //goToUsersList()
-        }
-    }
-    catch (error){
-        pack.onLoad(false)
-        Alert.alert(error)
-    }
-}
-
-const validateEmail = (email: string) => {
+export const validateEmail = (email: string) => {
     const regexValidator = /.+[@].+\.com/;
     const valid = regexValidator.test(email);
     if (!valid){
@@ -71,7 +52,7 @@ const validateEmail = (email: string) => {
     return valid
 }
 
-const validatePassword = (password: string) => {
+export const validatePassword = (password: string) => {
     const regexValidator = /(((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)|(.*[0-9].*)((.*[A-Z].*)|(.*[a-z].*)))/;
     const valid = regexValidator.test(password);
     if (!valid){
@@ -83,3 +64,4 @@ const validatePassword = (password: string) => {
     }
     return valid && minimumSize  
 }
+
