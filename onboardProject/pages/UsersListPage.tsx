@@ -22,7 +22,7 @@ const PageContainerContent = (element:Element) =>{
         <PageContainer>
             <H1>Usuários</H1>
             {element}
-            <FabButton color={StyleGuide.SecondaryColorEmphasis}></FabButton>
+            <FabButton color={StyleGuide.PrimaryColor}></FabButton>
         </PageContainer>
     )
 }

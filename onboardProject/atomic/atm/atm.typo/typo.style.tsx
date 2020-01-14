@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { StyleGuide } from '../../../StyleGuide';
 
 export const H1 = styled.Text`
     height: 45px;
@@ -8,7 +9,6 @@ export const H1 = styled.Text`
     border-color: #FFF;
     font-weight: bold;
     font-size: 30px;
-    background-color: #FFF;
 `;
 
 export const H2 = styled.Text`
@@ -25,7 +25,11 @@ export const Subline = styled.Text`
     height: auto;
     width: 100%;
     font-size: 14px;
-    color: #707070;
+    color: ${StyleGuide.SecondaryColorEmphasis};
     padding-left: 9px;
     padding-bottom: 9px;
+`;
+
+export const InputLabel = styled.Text`
+    font-size: 14px;
 `;

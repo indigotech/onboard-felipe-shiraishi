@@ -1,5 +1,7 @@
 import React from 'react'
-import { StyledTextInput } from './input.style';
+import { StyledTextInput, StyledInputContainer } from './input.style';
+import { H2, InputLabel } from '../atm.typo/typo.style'
+
 
 export interface TextInputProps 
 {
@@ -11,10 +13,13 @@ export interface TextInputProps
 export const TextField = (props:TextInputProps) => 
 {
     return (
-        <StyledTextInput
-            secureTextEntry = {props.secure}
-            placeholder = {props.placeholder}
-            onChangeText = { props.onChangeText }
-        />
+        <StyledInputContainer>
+            <InputLabel>{props.placeholder}</InputLabel>
+            <StyledTextInput
+                secureTextEntry = {props.secure}
+                placeholder = {props.placeholder}
+                onChangeText = { props.onChangeText }
+            />
+        </StyledInputContainer>
     )
 }; export default TextField

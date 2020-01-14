@@ -1,11 +1,12 @@
 export const StyleGuide = {
     // Colors
-    PrimaryColor: '#8CACFF',
+    PrimaryColor: '#391799',
 
-    SecondaryColor: '#795CCC',
-    SecondaryColorEmphasis: '#391799',
+    SecondaryColorEmphasis: '#795CCC',
+    SecondaryColor: '#8CACFF',
 
-    TerciaryColor: '#FFEBCC',
-    TerciaryColorEmphasis: '#CC915C'
+    BackgroundColor: '#FFFFFF',
+    WarningColor: '#FFEBCC',
+    EmphasizeColor: '#CC915C'
     
 }
