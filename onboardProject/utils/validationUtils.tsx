@@ -4,9 +4,13 @@ import { client, storeData } from '../utils/apollo';
 import gql from 'graphql-tag';
 import { goToUsersList } from './navigation';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import UsersListPage from 'pages/UsersListPage';
 =======
 >>>>>>> Refactor after pr
+=======
+import UsersListPage from 'pages/UsersListPage';
+>>>>>>> refactor after PR
 
 export interface authPack {
     email: string;
@@ -16,10 +20,14 @@ export interface authPack {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const mountLoginMutation = (email: string, password: string) => {
 =======
 const mountLoginMutation = (email: string, password: string) => {
 >>>>>>> Refactor after pr
+=======
+export const mountLoginMutation = (email: string, password: string) => {
+>>>>>>> refactor after PR
     return gql`
     mutation loginMutation {
         Login(data: {
@@ -46,7 +54,7 @@ export const requestLogin = async (email:string, password:string) => {
     `
 }
 
-const requestLogin = async (email:string, password:string) => {
+export const requestLogin = async (email:string, password:string) => {
     const mutation = mountLoginMutation(email, password)
     try{
         const result = await client.mutate({mutation: mutation})
@@ -112,8 +120,12 @@ export const validatePassword = (password: string) => {
     }
     return valid && minimumSize  
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 =======
 }
 >>>>>>> Refactor after pr
+=======
+}
+>>>>>>> refactor after PR
