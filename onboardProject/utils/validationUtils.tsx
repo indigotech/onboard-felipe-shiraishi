@@ -2,7 +2,6 @@ import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Alert } from 'react-native';
 import { client, storeData } from '../utils/apollo';
 import gql from 'graphql-tag';
-import { goToUsersList } from './navigation';
 import UsersListPage from 'pages/UsersListPage';
 
 export interface authPack {

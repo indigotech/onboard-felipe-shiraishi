@@ -6,6 +6,7 @@ import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.compone
 import { validateEmail, validatePassword, requestLogin } from '../utils/validationUtils';
 import { useNavigation } from '../hooks/hooks';
 import { Alert } from 'react-native';
+import { goToUsersList } from '../utils/navigation';
 
 export const LoginPage = () => 
 {
@@ -24,8 +25,7 @@ export const LoginPage = () =>
             if (validEmail && validPassword){
                 await requestLogin(email, password)
                 setLoad(false)
-                navigator.navigate("UsersList")
-                //goToUsersList()
+                goToUsersList()
         }
         } catch (error)
         {

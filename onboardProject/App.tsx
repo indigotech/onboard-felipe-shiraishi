@@ -14,13 +14,17 @@ import { createStackNavigator } from 'react-navigation-stack'
 import LoginPage from './pages/LoginPage';
 import UsersListPage from './pages/UsersListPage';
 import { ApolloProvider } from '@apollo/client';
+import { Navigation } from 'react-native-navigation';
+import { goToUsersList, registerScreens } from './utils/navigation'
 
-const MainNavigator = createStackNavigator({
-    Login: {screen: LoginPage},
-    UsersList: {screen: UsersListPage}
-  }
-);
+//registerScreens();
 
-const App = createAppContainer(MainNavigator);
+// const MainNavigator = createStackNavigator({
+//     Login: {screen: LoginPage},
+//     UsersList: {screen: UsersListPage}
+//   }
+// );
 
-export default App;
+// const App = createAppContainer(MainNavigator);
+
+//export default App;
