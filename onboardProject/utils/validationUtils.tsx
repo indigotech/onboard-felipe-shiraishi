@@ -1,38 +1,67 @@
-import { Alert } from "react-native";
-
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import { Alert } from 'react-native';
+import { client, storeData } from '../utils/apollo';
+import gql from 'graphql-tag';
+import { goToUsersList } from './navigation';
+import UsersListPage from 'pages/UsersListPage';
 
 export interface authPack {
     email: string;
     password: string;
+    navigator: NavigationScreenProp<NavigationRoute, any>;
+    onLoad: (loading:boolean) => void;
 };
 
-export const validateLogin = (pack:authPack) => {
-    const minimumSize = (pack.password.length >= 7);
+export const mountLoginMutation = (email: string, password: string) => {
+    return gql`
+    mutation loginMutation {
+        Login(data: {
+            email: \"${email}\", 
+            password: \"${password}\"
+        })
+        {
+            token
+        }
+    }
+    `
+}
 
-    if (!validateEmail(pack.email)){
-        Alert.alert("Email inválido " + pack.email)
+export const requestLogin = async (email:string, password:string) => {
+    const mutation = mountLoginMutation(email, password)
+    try{
+        const result = await client.mutate({mutation: mutation})
+        try {
+            await storeData("token", result.data.Login.token)
+        }
+        catch {
+            throw "Não foi possível se autenticar. Tente novamente."
+        }
+        
     }
-    else if (!validatePassword(pack.password)){
-        Alert.alert("Pelo menos 1 número e 1 caractere")
-    }
-    else if (!minimumSize){
-        Alert.alert("Senha muito curta (7 min.)")
-    }
-    else{
-        Alert.alert("Sucesso");
+    catch{
+        throw "Credenciais inválidas"
     }
 }
 
-const validateEmail = (email: string) => {
+export const validateEmail = (email: string) => {
     const regexValidator = /.+[@].+\.com/;
     const valid = regexValidator.test(email);
-    
-    return valid;
+    if (!valid){
+        throw ("Email inválido " + email)
+    }
+    return valid
 }
 
-const validatePassword = (password: string) => {
-    const regexValidator = /((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)/;
+export const validatePassword = (password: string) => {
+    const regexValidator = /(((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)|(.*[0-9].*)((.*[A-Z].*)|(.*[a-z].*)))/;
     const valid = regexValidator.test(password);
-    
-    return valid;
+    if (!valid){
+        throw ("Pelo menos 1 número e 1 caractere")
+    }
+    const minimumSize = (password.length >= 7);
+    if (!minimumSize){
+        throw ("Senha muito curta (7 min.)")
+    }
+    return valid && minimumSize  
 }
+
