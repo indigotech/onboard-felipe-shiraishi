@@ -4,6 +4,10 @@ import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.compone
 import List, { ListProps } from '../atomic/atm/atm.list/list.component';
 import { queryUsers } from '../utils/apollo';
 import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
+import FabButton from '../atomic/atm/atm.fab/fab.component';
+import { ColorPropType } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { StyleGuide } from '../StyleGuide';
 
 export interface RequestHeaders{
     Authorization: string
@@ -18,6 +22,7 @@ const PageContainerContent = (element:Element) =>{
         <PageContainer>
             <H1>Usuários</H1>
             {element}
+            <FabButton color={StyleGuide.SecondaryColorEmphasis}></FabButton>
         </PageContainer>
     )
 }
