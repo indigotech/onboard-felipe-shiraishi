@@ -2,6 +2,7 @@ import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { Alert } from 'react-native';
 import { client, storeData } from '../utils/apollo';
 import gql from 'graphql-tag';
+import { goToUsersList } from './navigation';
 
 export interface authPack {
     email: string;
@@ -10,60 +11,73 @@ export interface authPack {
     onLoad: (loading:boolean) => void;
 };
 
- export const validateLogin = async (pack:authPack) => {
-    try{
-        const minimumSize = (pack.password.length >= 7);
-
-        if (!validateEmail(pack.email)){
-            Alert.alert("Email inválido " + pack.email)
-        }
-        else if (!validatePassword(pack.password)){
-            Alert.alert("Pelo menos 1 número e 1 caractere")
-        }
-        else if (!minimumSize){
-            Alert.alert("Senha muito curta (7 min.)")
-        }
-        else{
-            const mutation = gql`
-            mutation loginMutation {
-                Login(data: 
-                {
-                    email: \"${pack.email}\", 
-                    password: \"${pack.password}\"
-                })
-                {
-                token
-                }
-            }
-            `
-
-            pack.onLoad(true);
-            const result = await client.mutate({mutation: mutation})
-            pack.onLoad(false)
-            if (result.errors){
-                Alert.alert("Credenciais inválidas")
-            }
-            else{
-                await storeData("token", result.data.Login.token)
-                pack.navigator.navigate("UsersList")
-            }
+const mountLoginMutation = (email: string, password: string) => {
+    return gql`
+    mutation loginMutation {
+        Login(data: {
+            email: \"${email}\", 
+            password: \"${password}\"
+        })
+        {
+            token
         }
     }
-    catch {
+    `
+}
+
+const requestLogin = async (email:string, password:string) => {
+    const mutation = mountLoginMutation(email, password)
+    try{
+        const result = await client.mutate({mutation: mutation})
+        try {
+            await storeData("token", result.data.Login.token)
+        }
+        catch {
+            throw "Não foi possível se autenticar. Tente novamente."
+        }
+        
+    }
+    catch{
+        throw "Credenciais inválidas"
+    }
+}
+
+ export const doLogin = async (pack:authPack) => {
+    try{
+        const validEmail = validateEmail(pack.email)
+        const validPassword = validatePassword(pack.password)
+
+        if (validEmail && validPassword){
+            pack.onLoad(true);
+            await requestLogin(pack.email, pack.password)
+            pack.onLoad(false)
+            goToUsersList()
+        }
+    }
+    catch (error){
         pack.onLoad(false)
+        Alert.alert(error)
     }
 }
 
 const validateEmail = (email: string) => {
     const regexValidator = /.+[@].+\.com/;
     const valid = regexValidator.test(email);
-    
-    return valid;
+    if (!valid){
+        throw ("Email inválido " + email)
+    }
+    return valid
 }
 
 const validatePassword = (password: string) => {
     const regexValidator = /(((.*[A-Z].*)|(.*[a-z].*))(.*[0-9].*)|(.*[0-9].*)((.*[A-Z].*)|(.*[a-z].*)))/;
     const valid = regexValidator.test(password);
-    
-    return valid;
+    if (!valid){
+        throw ("Pelo menos 1 número e 1 caractere")
+    }
+    const minimumSize = (password.length >= 7);
+    if (!minimumSize){
+        throw ("Senha muito curta (7 min.)")
+    }
+    return valid && minimumSize  
 }

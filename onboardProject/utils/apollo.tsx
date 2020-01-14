@@ -1,5 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
 import { AsyncStorage } from "react-native";
+import { ListProps } from "atomic/atm/atm.list/list.component";
 
 export const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -21,16 +22,19 @@ export const fetchData = async (key:string) => {
         if (value !== null) {
             return value;
         }
+        else{
+            return "Inexistent key"
+        }
     }
     catch(error){}
 };
 
 const mountContext = (token:string) => {
-    return({headers: 
-        {
+    return{
+        headers: {
             Authorization: token
         }
-    })
+    }
 }
 
 export const queryUsers = async (offset: number) => {
@@ -44,7 +48,10 @@ export const queryUsers = async (offset: number) => {
             }`
 
         const token = await fetchData("token")
-        if (token){
+        if(token === "Inexistent token"){
+           throw Error("Inexistent token")
+        }
+        else if (token){
             const context = mountContext(token)
             const result = await client.query({ query: query, context: context })
             try{
@@ -61,3 +68,5 @@ export const queryUsers = async (offset: number) => {
         return error
     }
 }
+
+

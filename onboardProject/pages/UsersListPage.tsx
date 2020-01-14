@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, SetStateAction } from 'react';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import List, { ListProps } from '../atomic/atm/atm.list/list.component';
@@ -13,9 +13,33 @@ export interface UsersListContext{
     headers: RequestHeaders
 }
 
+const PageContainerContent = (element:Element) =>{
+    return (
+        <PageContainer>
+            <H1>Usuários</H1>
+            {element}
+        </PageContainer>
+    )
+}
+
+const updateContent = (
+        offset: number, 
+        data: ListProps, 
+        dataHook: (value:ListProps) => void, 
+        offsetHook: (value:number) => void
+        ) => {
+            queryUsers(offset).then(result => {
+                let _data = data.slice(0);
+                _data = _data.concat(result);
+                dataHook(_data);
+                offsetHook(offset + 10);
+    })
+}
+
 export const UsersListPage = () => 
 {
     const [data, onDataChange] = React.useState<ListProps>();
+    const [offset, onOffsetChange] = React.useState(10);
     const [error, onErrorLoad] = React.useState<Error>();
 
     useEffect(() => {
@@ -23,43 +47,26 @@ export const UsersListPage = () =>
     },[]);
 
     if (error){
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <H1> Não foi possível carregar o conteúdo! </H1>
-            </PageContainer>
-        )
+        return PageContainerContent(<H1> Não foi possível carregar o conteúdo! </H1>)
     }
 
     else if (Array.isArray(data)){
         if (data.length === 0){
-            return (
-                <PageContainer>
-                    <H1>Usuários</H1>
-                    <H1>Ops! Não há usuários!</H1>
-                </PageContainer>
-            )
+            return PageContainerContent(<H1>Ops! Não há usuários!</H1>)
         }
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <List data={data}></List>
-            </PageContainer>
-        )
-    }
-
-    else{
-        return (
-            <PageContainer>
-                <H1>Usuários</H1>
-                <LoadingIcon/>
-            </PageContainer>
-        )
+        else{
+            return (
+                PageContainerContent(
+                    <List data={data} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
+                )
+        }
     }
     
+    else{ return PageContainerContent(<LoadingIcon/>) }
 };
 
 UsersListPage.navigationOptions = {
     title: 'UsersListPage',
   };
 export default UsersListPage
+
