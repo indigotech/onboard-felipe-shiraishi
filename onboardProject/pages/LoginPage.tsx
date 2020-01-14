@@ -25,7 +25,6 @@ export const LoginPage = () =>
             if (validEmail && validPassword){
                 await requestLogin(email, password)
                 setLoad(false)
-                //navigator.navigate("UsersList")
                 goToUsersList()
         }
         } catch (error)
