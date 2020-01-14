@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { client, storeData } from '../utils/apollo';
 import gql from 'graphql-tag';
 import { goToUsersList } from './navigation';
+import UsersListPage from 'pages/UsersListPage';
 
 export interface authPack {
     email: string;
@@ -51,7 +52,8 @@ const requestLogin = async (email:string, password:string) => {
             pack.onLoad(true);
             await requestLogin(pack.email, pack.password)
             pack.onLoad(false)
-            goToUsersList()
+            pack.navigator.navigate(UsersList)
+            //goToUsersList()
         }
     }
     catch (error){
