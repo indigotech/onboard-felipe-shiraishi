@@ -38,13 +38,15 @@ export const LoginPage = () =>
         <PageContainer>
             <H1>Bem-vindo(a) à Taqtile!</H1>
             <TextField 
-                placeholder={"Nome de usuário"}
-                onChangeText={(text:string) => setEmail(text.toLowerCase())}
+                label = {"Nome de usuário"}
+                placeholder={"email@provider.com"}
+                onChange={(text:string) => setEmail(text.toLowerCase())}
                 />
             <TextField 
+                label = {"Senha"}
                 secure={true}
                 placeholder={"Senha"}
-                onChangeText={(text:string) => setPassword(text)}
+                onChange={(text:string) => setPassword(text)}
                 />
             <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap}/>
         </PageContainer>

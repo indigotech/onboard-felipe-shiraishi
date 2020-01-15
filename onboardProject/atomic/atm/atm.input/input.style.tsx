@@ -13,3 +13,7 @@ export const StyledInputContainer = styled.View`
     width: 100%;
     height: auto;
 `
+
+export const StyledPickerInput = styled.Picker`
+
+`
