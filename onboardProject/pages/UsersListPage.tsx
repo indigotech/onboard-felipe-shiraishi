@@ -5,9 +5,10 @@ import List, { ListProps } from '../atomic/atm/atm.list/list.component';
 import { queryUsers } from '../utils/apollo';
 import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
 import FabButton from '../atomic/atm/atm.fab/fab.component';
-import { ColorPropType } from 'react-native';
+import { ColorPropType, Alert } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { StyleGuide } from '../StyleGuide';
+import { goToAddUser } from '../utils/navigation';
 
 export interface RequestHeaders{
     Authorization: string
@@ -17,12 +18,12 @@ export interface UsersListContext{
     headers: RequestHeaders
 }
 
-const PageContainerContent = (element:Element) =>{
+const PageContainerContent = (element:JSX.Element) =>{
     return (
         <PageContainer>
             <H1>Usuários</H1>
             {element}
-            <FabButton color={StyleGuide.PrimaryColor}></FabButton>
+            <FabButton color={StyleGuide.PrimaryColor} onClick={goToAddUser}></FabButton>
         </PageContainer>
     )
 }

@@ -5,7 +5,7 @@ import { Color } from 'csstype';
 
 export interface FabProps 
 {
-    onClick?: (event:any) => void;
+    onClick: () => void;
     color: string;
 }
 
@@ -13,7 +13,7 @@ export const FabButton = (props:FabProps) =>
 {
     return (
         <StyledFabContainer>
-            <StyledFabButton color= {props.color}>
+            <StyledFabButton color={props.color} onPress={props.onClick}>
                 <StyledFabText>+</StyledFabText>
             </StyledFabButton>
         </StyledFabContainer>
