@@ -12,8 +12,19 @@ import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
 import { placeholder } from '@babel/types';
 import { validateBirthDate, validateEmail, validatePassword, validateCPF } from '../utils/validationUtils';
+import { formatsBirthDate } from '../utils/validationUtils'
+import { requestUserCreation } from '../utils/userCreationUtils'
 
 enum roles{ admin="admin", user="user" }
+
+export interface userInput {
+    name: string,
+    email: string,
+    cpf: string,
+    birthDate: string,
+    password: string,
+    role: string
+}
 
 export const CreateUserPage = () => 
 {
@@ -25,7 +36,7 @@ export const CreateUserPage = () =>
     const [Role, setRole] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const handleButtonTap = () => {
+    const handleButtonTap = async () => {
         try{
             const validEmail = validateEmail(Email)
             const validPassword = validatePassword(Password)
@@ -34,7 +45,16 @@ export const CreateUserPage = () =>
     
             setLoading(true);
             if (validEmail && validPassword && validCPF && validBirthDate){
-                Alert.alert(Name + Email + Password + CPF + BirthDate + Role)
+                const result = await requestUserCreation({
+                    name: Name,
+                    email: Email,
+                    password: Password,
+                    birthDate: BirthDate,
+                    cpf: CPF,
+                    role: Role
+                })
+                console.log(result)
+                Alert.alert("Usuário criado com sucesso.")
                 setLoading(false)
             }
         } catch (error)
@@ -51,7 +71,7 @@ export const CreateUserPage = () =>
             <TextField label="Email" placeholder="Email" onChange={(text:string) => setEmail(text)}/>
             <TextField label="Senha" placeholder="Senha" secure={true} onChange={(text:string) => setPassword(text)}/>
             <TextField label="CPF" placeholder="CPF" onChange={(text:string) => setCPF(text)}/>
-            <TextField label="Data de nascimento" placeholder="YYYY/MM/DD" onChange={(text:string) => setBirthDate(text)}/>
+            <TextField label="Data de nascimento" placeholder="YYYY/MM/DD" onChange={(text:string) => setBirthDate(formatsBirthDate(text))}/>
             <PickerField inputProps={{label:"Role", placeholder:roles.user, onChange:
                 (text:string) => {setRole(text)}
             }} 
