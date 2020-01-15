@@ -11,6 +11,7 @@ import { StyleGuide } from '../StyleGuide';
 import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
 import { placeholder } from '@babel/types';
+import { validateBirthDate, validateEmail, validatePassword, validateCPF } from '../utils/validationUtils';
 
 enum roles{ admin="admin", user="user" }
 
@@ -23,6 +24,15 @@ const enumToArray = (enumObject:any) => {
 
 }
 
+interface userInput {
+    name: string,
+    email: string,
+    cpf: string,
+    birthDate: string,
+    password: string,
+    role: roles
+}
+
 export const CreateUserPage = () => 
 {
     const [Nome, setNome] = useState("")
@@ -31,6 +41,26 @@ export const CreateUserPage = () =>
     const [CPF, setCPF] = useState("")
     const [BirthDate, setBirthDate] = useState("")
     const [Role, setRole] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const handleButtonTap = () => {
+        try{
+            const validEmail = validateEmail(Email)
+            const validPassword = validatePassword(Senha)
+            const validCPF = validateCPF(CPF)
+            const validBirthDate = validateBirthDate(BirthDate)
+    
+            setLoading(true);
+            if (validEmail && validPassword && validCPF && validBirthDate){
+                Alert.alert(Nome + Email + Senha + CPF + BirthDate + Role)
+                setLoading(false)
+            }
+        } catch (error)
+        {
+            Alert.alert(error)
+            setLoading(false)
+        }
+    }
 
     return (
         <PageContainer>
@@ -44,7 +74,7 @@ export const CreateUserPage = () =>
                 (text:string) => {setRole(text)}
             }} 
             categories={enumToArray(roles)} selected={Role}/>
-            <PrimaryButton onClick={() => Alert.alert(Role)} label="Criar Usuário"/>
+            <PrimaryButton loading={loading} onClick={handleButtonTap} label="Criar Usuário"/>
         </PageContainer>
     )
 };
