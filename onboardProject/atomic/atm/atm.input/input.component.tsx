@@ -1,20 +1,62 @@
 import React from 'react'
-import { StyledTextInput } from './input.style';
+import { StyledTextInput, StyledInputContainer, StyledPickerInput } from './input.style';
+import { H2, InputLabel } from '../atm.typo/typo.style'
+import { Alert, Picker } from 'react-native';
 
-export interface TextInputProps 
+
+export interface InputProps 
 {
     placeholder?: string;
+    label: string;
     secure?: boolean;
-    onChangeText: (input:string) => void;
+    onChange: (input:string) => void;
 }
 
-export const TextField = (props:TextInputProps) => 
+export interface PickerProps{
+    inputProps: InputProps;
+    selected: string;
+    categories: string[];
+}
+
+const InputLayoutComponent = (InputType:JSX.Element, label:string) => {
+    return(
+        <StyledInputContainer>
+            <InputLabel>{label}</InputLabel>
+            {InputType}
+        </StyledInputContainer>
+    )
+}
+
+export const PickerField = (props:PickerProps) => {
+    const categories = () => {
+        return (props.categories.map((category) => {
+            return (<Picker.Item label={category} value={category}/>)
+        }))
+    }
+
+    return(
+        InputLayoutComponent(
+            <StyledPickerInput
+                selectedValue={props.selected}
+                onValueChange={props.inputProps.onChange}
+                mode="dropdown">
+
+                {categories()}
+            </StyledPickerInput>
+            , props.inputProps.label
+        )
+    )
+}
+
+export const TextField = (props:InputProps) => 
 {
     return (
-        <StyledTextInput
-            secureTextEntry = {props.secure}
-            placeholder = {props.placeholder}
-            onChangeText = { props.onChangeText }
-        />
+        InputLayoutComponent(
+            <StyledTextInput
+                secureTextEntry = {props.secure}
+                placeholder = {props.placeholder}
+                onChangeText = { props.onChange }
+            />, props.label)
+ 
     )
 }; export default TextField

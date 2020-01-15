@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { StyleGuide } from '../../../StyleGuide';
 
 export const StyledButtonContainer = styled.View`
     height: auto;
@@ -10,7 +11,7 @@ export const StyledButtonContainer = styled.View`
 export const StyledButton = styled.TouchableOpacity`
     width: 100%;
     color: #FFF;
-    background-color: #156927;
+    background-color: ${StyleGuide.PrimaryColor};
     border-radius: 6px;
     height: 50px;
     padding: 6px;

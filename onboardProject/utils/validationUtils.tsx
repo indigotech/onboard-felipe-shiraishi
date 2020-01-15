@@ -64,3 +64,40 @@ export const validatePassword = (password: string) => {
     return valid && minimumSize  
 }
 
+export const validateCPF = (cpf: string) => {
+    const regexValidator = /(^\d{3}\.\d{3}\.\d{3}\-\d{2}$)|(^\d{11}$)/
+    const valid = regexValidator.test(cpf);
+    if (!valid){
+        throw ("CPF inválido")
+    }
+    return valid
+}
+
+export const validateBirthDate = (birth: string) => {
+    const regexValidator = /(^\d{4}\/\d{2}\/\d{2}$)|(^\d{4}\-\d{2}\-\d{2}$)/
+    const valid = regexValidator.test(birth)
+    if (!valid){
+        throw ("Data em formato inválido")
+    }
+    
+    const today = new Date();
+    const birthDate = new Date(birth);
+    const minDate = new Date("1900/01/01");
+    const validDate = ((today >= birthDate) && (birthDate >= minDate))
+
+    if (!validDate){
+        throw ("Data de nascimento no futuro")
+    }
+
+    return (valid && validDate)
+}
+
+export const formatsBirthDate = (birth:string) => {
+    const year = birth.slice(0,4)
+    const month = birth.slice(5,7)
+    const day = birth.slice(8, 10)
+
+    const result = year + '-' + month + '-' + day
+    
+    return result
+}
