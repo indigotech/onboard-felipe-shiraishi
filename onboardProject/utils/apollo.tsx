@@ -43,6 +43,7 @@ export const queryUsers = async (offset: number) => {
                     nodes{
                         name
                         email
+                        id
                     }
                 }
             }`
