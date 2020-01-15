@@ -42,7 +42,7 @@ export const List = (props:ListProps) =>
 export const ListEntry = (props:ListEntryKeyProps) => 
 {
     return (
-        <StyledListEntry onPress={() => props.onClick(props.id)}>
+        <StyledListEntry onPress={props.onClick}>
             <H2>{props.name}</H2>
             <Subline>{props.email}</Subline>
         </StyledListEntry>

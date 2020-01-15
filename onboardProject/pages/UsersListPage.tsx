@@ -49,7 +49,6 @@ export const UsersListPage = () =>
     const [error, onErrorLoad] = React.useState<Error>();
 
     const handleListEntryClick = (id: number) => {
-        console.log("Fui clicado")
         goToUserDetail(id)
     }
 
