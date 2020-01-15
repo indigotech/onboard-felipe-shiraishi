@@ -15,29 +15,11 @@ import { validateBirthDate, validateEmail, validatePassword, validateCPF } from 
 
 enum roles{ admin="admin", user="user" }
 
-const enumToArray = (enumObject:any) => {
-    let all = [];
-    for(let key in enumObject){
-        all.push(enumObject[key]);
-    }
-    return all;
-
-}
-
-interface userInput {
-    name: string,
-    email: string,
-    cpf: string,
-    birthDate: string,
-    password: string,
-    role: roles
-}
-
 export const CreateUserPage = () => 
 {
-    const [Nome, setNome] = useState("")
+    const [Name, setName] = useState("")
     const [Email, setEmail] = useState("")
-    const [Senha, setSenha] = useState("")
+    const [Password, setPassword] = useState("")
     const [CPF, setCPF] = useState("")
     const [BirthDate, setBirthDate] = useState("")
     const [Role, setRole] = useState("")
@@ -46,13 +28,13 @@ export const CreateUserPage = () =>
     const handleButtonTap = () => {
         try{
             const validEmail = validateEmail(Email)
-            const validPassword = validatePassword(Senha)
+            const validPassword = validatePassword(Password)
             const validCPF = validateCPF(CPF)
             const validBirthDate = validateBirthDate(BirthDate)
     
             setLoading(true);
             if (validEmail && validPassword && validCPF && validBirthDate){
-                Alert.alert(Nome + Email + Senha + CPF + BirthDate + Role)
+                Alert.alert(Name + Email + Password + CPF + BirthDate + Role)
                 setLoading(false)
             }
         } catch (error)
@@ -65,15 +47,15 @@ export const CreateUserPage = () =>
     return (
         <PageContainer>
             <H1>Criar Usuário</H1>
-            <TextField label="Nome" placeholder="Nome" onChange={(text:string) => setNome(text)}/>
+            <TextField label="Nome" placeholder="Nome" onChange={(text:string) => setName(text)}/>
             <TextField label="Email" placeholder="Email" onChange={(text:string) => setEmail(text)}/>
-            <TextField label="Senha" placeholder="Senha" secure={true} onChange={(text:string) => setSenha(text)}/>
+            <TextField label="Senha" placeholder="Senha" secure={true} onChange={(text:string) => setPassword(text)}/>
             <TextField label="CPF" placeholder="CPF" onChange={(text:string) => setCPF(text)}/>
             <TextField label="Data de nascimento" placeholder="YYYY/MM/DD" onChange={(text:string) => setBirthDate(text)}/>
-            <PickerField InputProps={{label:"Role", placeholder:roles.user, onChange:
+            <PickerField inputProps={{label:"Role", placeholder:roles.user, onChange:
                 (text:string) => {setRole(text)}
             }} 
-            categories={enumToArray(roles)} selected={Role}/>
+            categories={Object.values(roles)} selected={Role}/>
             <PrimaryButton loading={loading} onClick={handleButtonTap} label="Criar Usuário"/>
         </PageContainer>
     )

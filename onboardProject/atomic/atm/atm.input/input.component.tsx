@@ -13,7 +13,7 @@ export interface InputProps
 }
 
 export interface PickerProps{
-    InputProps: InputProps;
+    inputProps: InputProps;
     selected: string;
     categories: string[];
 }
@@ -38,12 +38,12 @@ export const PickerField = (props:PickerProps) => {
         InputLayoutComponent(
             <StyledPickerInput
                 selectedValue={props.selected}
-                onValueChange={props.InputProps.onChange}
+                onValueChange={props.inputProps.onChange}
                 mode="dropdown">
 
                 {categories()}
             </StyledPickerInput>
-            , props.InputProps.label
+            , props.inputProps.label
         )
     )
 }

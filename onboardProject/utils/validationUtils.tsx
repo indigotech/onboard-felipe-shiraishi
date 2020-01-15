@@ -81,8 +81,9 @@ export const validateBirthDate = (birth: string) => {
     }
     
     const today = new Date();
-    const birthDate = new Date(birth)
-    const validDate = (today >= birthDate)
+    const birthDate = new Date(birth);
+    const minDate = new Date("1900/01/01");
+    const validDate = ((today >= birthDate) && (birthDate >= minDate))
 
     if (!validDate){
         throw ("Data de nascimento no futuro")
