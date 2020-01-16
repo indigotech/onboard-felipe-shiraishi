@@ -14,6 +14,7 @@ import { placeholder } from '@babel/types';
 import { validateBirthDate, validateEmail, validatePassword, validateCPF } from '../utils/validationUtils';
 import { formatsBirthDate } from '../utils/validationUtils'
 import { requestUserCreation } from '../utils/userCreationUtils'
+import { returnToList } from '../utils/navigation';
 
 enum roles{ admin="admin", user="user" }
 
@@ -38,7 +39,7 @@ export const CreateUserPage = () =>
 
     const handleButtonTap = async () => {
         try{
-            const validEmail = validateEmail(Email)
+            const validEmail = validateEmail(Email.toLowerCase())
             const validPassword = validatePassword(Password)
             const validCPF = validateCPF(CPF)
             const validBirthDate = validateBirthDate(BirthDate)
@@ -53,8 +54,7 @@ export const CreateUserPage = () =>
                     cpf: CPF,
                     role: Role
                 })
-                console.log(result)
-                Alert.alert("Usuário criado com sucesso.")
+                returnToList();
                 setLoading(false)
             }
         } catch (error)
