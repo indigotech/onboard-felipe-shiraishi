@@ -44,7 +44,7 @@ export const validateEmail = (email: string) => {
     const regexValidator = /.+[@].+\.com/;
     const valid = regexValidator.test(email);
     if (!valid){
-        throw ("Email inválido " + email)
+        throw ("Email inválido")
     }
     return valid
 }

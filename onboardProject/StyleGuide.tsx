@@ -9,6 +9,8 @@ export const StyleGuide = {
     WarningColor: '#FFEBCC',
     EmphasizeColor: '#CC915C',
 
+    errorColor: '#FF0000',
+
     // Margins
     MarginXSmall: '4px',
     MarginSmall: '8px',

@@ -31,10 +31,22 @@ export const Subline = styled.Text`
 `;
 
 export const InputLabel = styled.Text`
+    margin-top: ${StyleGuide.MarginSmall};
     font-size: 14px;
 `;
 
 export const Body = styled.Text`
     font-size: 14px;
     padding-left: ${StyleGuide.MarginSmall};
+`
+
+export interface captionProps{
+    color: string;
+    display: boolean
+}
+
+export const Caption = styled.Text`
+    font-size:14px;
+    display: ${(props:captionProps) => (props.display ? "flex" :"none")};
+    color: ${(props:captionProps) => props.color};
 `
