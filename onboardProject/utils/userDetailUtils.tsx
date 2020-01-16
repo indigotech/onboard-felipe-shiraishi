@@ -24,13 +24,8 @@ export const queryUser = async(id:any) => {
             const context = mountContext(token)
             const query = mountUserDetailQuery(id.id)
             const result = await client.query({ query: query, context: context })
-            try{
-                const data = result.data.User
-                return data
-            }
-            catch (error){
-                return error
-            }
+            const data = result.data.User
+            return data
         }
         
     }
