@@ -14,14 +14,24 @@ import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
 export const UserDetailsPage = (id:number) => 
 {
     useEffect(() => {
-        queryUser(id).then(result => setData(result)).catch(error => {Alert.alert(error)});
+        queryUser(id).then(result => setData(result)).catch(error => {() => setError(error)});
     },[]);
 
     const [data, setData] = useState<userInput>()
-
-    if (data){
+    const [error, setError] = useState()
+    
+    if (error){
         return (
             <PageContainer>
+                <H1>Não foi possível carregar o conteúdo</H1>
+            </PageContainer>
+        )
+    }
+
+    return (
+        <PageContainer>
+            { (data) ? (
+            <>
                 <H1>{data.name}</H1>
                 <H2>Email</H2>
                 <Body>{data.email}</Body>
@@ -31,17 +41,11 @@ export const UserDetailsPage = (id:number) =>
                 <Body>{data.birthDate}</Body>
                 <H2>Role</H2>
                 <Body>{data.role}</Body>
-            </PageContainer>
-        )
-    }
-    else{
-        return(
-            <PageContainer>
-                <H1>Carregando dados</H1>
-                <LoadingIcon></LoadingIcon>
-            </PageContainer>
-        )
-    }
+            </>) : 
+            (<LoadingIcon/>)}
+            
+        </PageContainer>
+    )
 };
 
 export default UserDetailsPage
