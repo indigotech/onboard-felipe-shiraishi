@@ -26,7 +26,7 @@ const InputLayoutComponent = (InputType:JSX.Element, label:string, error: boolea
         <StyledInputContainer>
             <InputLabel>{label}</InputLabel>
             {InputType}
-    <Caption color={StyleGuide.errorColor} display={error}>{errorMessage}</Caption>
+            <Caption color={StyleGuide.errorColor} display={error}>{errorMessage}</Caption>
         </StyledInputContainer>
     )
 }
