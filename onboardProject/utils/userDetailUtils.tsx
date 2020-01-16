@@ -1,4 +1,4 @@
-import { fetchData, client } from "./apollo"
+import {  client, fetchToken } from "./apollo"
 import gql from "graphql-tag"
 
 export const mountUserDetailQuery = (id:number) => {
@@ -16,17 +16,10 @@ export const mountUserDetailQuery = (id:number) => {
 
 export const queryUser = async(id:any) => {
     try{
-        const token = await fetchData("token")
-        if(token === "Inexistent token"){
-           throw Error("Inexistent token")
-        }
-        else if (token){
-            const query = mountUserDetailQuery(id.id)
-            const result = await client.query({ query: query })
-            const data = result.data.User
-            return data
-        }
-        
+        const query = mountUserDetailQuery(id.id)
+        const result = await client.query({ query: query })
+        const data = result.data.User
+        return data
     }
     catch(error){
         return error

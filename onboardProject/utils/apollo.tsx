@@ -5,7 +5,7 @@ import { setContext } from "apollo-link-context"
 const GRAPHQL_URL = "https://tq-template-server-sample.herokuapp.com/graphql"
 
 const authContext = setContext(async (_, {headers}) => {
-    const token = await fetchData('token');
+    const token = await fetchToken();
     return {
         headers:{
             ...headers,
@@ -30,9 +30,9 @@ export const storeData = async (key:string, value:string) => {
     catch(error){}
 };
 
-export const fetchData = async (key:string) => {
+export const fetchToken = async () => {
     try{
-        const value = await AsyncStorage.getItem(key);
+        const value = await AsyncStorage.getItem("token");
         if (value !== null) {
             return value;
         }
@@ -40,38 +40,29 @@ export const fetchData = async (key:string) => {
             throw "Inexistent key"
         }
     }
-    catch(error){}
+    catch(error)
+    {
+        throw (error)
+    }
 };
 
-export const mountContext = (token:string) => {
-    return{
-        headers: {
-            Authorization: token
+const mountQueryUsers = (offset: number) => {
+    return (gql`{Users(offset:${offset}, limit:10){
+            nodes{
+                name
+                email
+                id
+            }
         }
-    }
+    }`)
 }
 
 export const queryUsers = async (offset: number) => {
     try{
-        const query = gql`{Users(offset:${offset}, limit:10){
-                    nodes{
-                        name
-                        email
-                        id
-                    }
-                }
-            }`
-
-        const token = await fetchData("token")
-        if(token === "Inexistent token"){
-           throw Error("Inexistent token")
-        }
-        else if (token){
-            const result = await client.query({ query: query })
-            const data = result.data.Users.nodes
-            return data
-        }
-        
+        const query = mountQueryUsers(offset)
+        const result = await client.query({ query: query })
+        const data = result.data.Users.nodes
+        return data
     }
     catch(error){
         return error
