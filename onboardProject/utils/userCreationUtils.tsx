@@ -30,8 +30,7 @@ export const requestUserCreation = async (input:userInput) => {
            throw Error("Inexistent token")
         }
         else if (token){
-            const context = mountContext(token)
-            const result = await client.mutate({ mutation: mutation, context: context })
+            const result = await client.mutate({ mutation: mutation })
             const data = result.data.UserCreate.id
             return data
         }

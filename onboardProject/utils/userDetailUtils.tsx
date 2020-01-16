@@ -21,9 +21,8 @@ export const queryUser = async(id:any) => {
            throw Error("Inexistent token")
         }
         else if (token){
-            const context = mountContext(token)
             const query = mountUserDetailQuery(id.id)
-            const result = await client.query({ query: query, context: context })
+            const result = await client.query({ query: query })
             const data = result.data.User
             return data
         }
