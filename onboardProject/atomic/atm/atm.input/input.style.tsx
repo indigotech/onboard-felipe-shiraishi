@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import { StyleGuide } from '../../../StyleGuide';
 
 export const StyledTextInput = styled.TextInput`
     width: 100%;
     height: 45px;
-    margin-top: ${StyleGuide.MarginSmall};
-    margin-bottom: ${StyleGuide.MarginMedium};
+    margin-top: 9px;
+    margin-bottom: 18px;
     border-width: 2px;
     border-radius: 4px;
 `;

@@ -3,7 +3,7 @@ import { StyledPageContainer } from './pagecontainer.style';
 
 export interface PageContainerProps 
 {
-    children?: JSX.Element[] | JSX.Element;
+    children?: JSX.Element[];
 }
 
 export const PageContainer = (props:PageContainerProps) => 

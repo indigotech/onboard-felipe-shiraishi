@@ -6,14 +6,11 @@ import { queryUsers } from '../../../utils/apollo';
 export interface ListProps {
     data: ListEntryKeyProps[];
     loadMoreData?: () => void;
-    onClickEntry: (id:number) => void;
 }
 
 export interface ListEntryKeyProps{
     name: string;
     email: string;
-    id:number;
-    onClick: (id:number) => void;
 }
 
 export interface ListEntryProps{
@@ -25,7 +22,7 @@ export const List = (props:ListProps) =>
     const [offset, onOffsetChange] = useState(10);
 
     const renderListEntry = ({item}:ListEntryProps) => {
-        return <ListEntry id={item.id} email = {item.email} name = {item.name} onClick={() => props.onClickEntry(item.id)}/>
+        return <ListEntry email = {item.email} name = {item.name}/>
     };
 
     return (
@@ -42,7 +39,7 @@ export const List = (props:ListProps) =>
 export const ListEntry = (props:ListEntryKeyProps) => 
 {
     return (
-        <StyledListEntry onPress={props.onClick}>
+        <StyledListEntry>
             <H2>{props.name}</H2>
             <Subline>{props.email}</Subline>
         </StyledListEntry>

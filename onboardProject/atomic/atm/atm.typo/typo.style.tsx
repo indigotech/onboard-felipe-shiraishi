@@ -4,8 +4,8 @@ import { StyleGuide } from '../../../StyleGuide';
 export const H1 = styled.Text`
     height: 45px;
     width: 100%;
-    margin-bottom: ${StyleGuide.MarginSmall};
-    margin-bottom: ${StyleGuide.MarginSmall};
+    margin-bottom: 9px;
+    margin-bottom: 9px;
     border-color: #FFF;
     font-weight: bold;
     font-size: 30px;
@@ -17,8 +17,8 @@ export const H2 = styled.Text`
     font-weight: bold;
     font-size: 24px;
     color: #000;
-    padding-left: ${StyleGuide.MarginSmall};
-    padding-top: ${StyleGuide.MarginSmall};
+    padding-left: 9px;
+    padding-top: 9px;
 `;
 
 export const Subline = styled.Text`
@@ -26,15 +26,10 @@ export const Subline = styled.Text`
     width: 100%;
     font-size: 14px;
     color: ${StyleGuide.SecondaryColorEmphasis};
-    padding-left: ${StyleGuide.MarginSmall};
-    padding-bottom: ${StyleGuide.MarginSmall};
+    padding-left: 9px;
+    padding-bottom: 9px;
 `;
 
 export const InputLabel = styled.Text`
     font-size: 14px;
 `;
-
-export const Body = styled.Text`
-    font-size: 14px;
-    padding-left: ${StyleGuide.MarginSmall};
-`

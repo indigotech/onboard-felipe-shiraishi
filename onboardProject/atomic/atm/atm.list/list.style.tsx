@@ -5,7 +5,7 @@ export const StyledList = styled.FlatList`
     width: 100%;
 `;
 
-export const StyledListEntry = styled.TouchableOpacity`
+export const StyledListEntry = styled.View`
     width: 100%;
     height: auto;
     border-color: #000;

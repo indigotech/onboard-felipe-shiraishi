@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Color } from 'csstype';
-import { StyleGuide } from '../../../StyleGuide';
 
 interface FabStyleProps {
     color: string;
@@ -11,7 +10,7 @@ export const StyledFabContainer = styled.View`
     width: auto;
     bottom: 0px;
     right: 0px;
-    margin: ${StyleGuide.MarginXLarge};
+    margin: 32px;
     position: absolute;
 `;
 

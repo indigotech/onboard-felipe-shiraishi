@@ -7,13 +7,6 @@ export const StyleGuide = {
 
     BackgroundColor: '#FFFFFF',
     WarningColor: '#FFEBCC',
-    EmphasizeColor: '#CC915C',
-
-    // Margins
-    MarginXSmall: '4px',
-    MarginSmall: '8px',
-    MarginMedium: '16px',
-    MarginLarge: '24px',
-    MarginXLarge: '32px',
+    EmphasizeColor: '#CC915C'
     
 }
