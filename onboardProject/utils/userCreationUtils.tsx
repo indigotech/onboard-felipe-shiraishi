@@ -32,13 +32,8 @@ export const requestUserCreation = async (input:userInput) => {
         else if (token){
             const context = mountContext(token)
             const result = await client.mutate({ mutation: mutation, context: context })
-            try{
-                const data = result.data.UserCreate.id
-                return data
-            }
-            catch (error){
-                return error
-            }
+            const data = result.data.UserCreate.id
+            return data
         }
         
     }
