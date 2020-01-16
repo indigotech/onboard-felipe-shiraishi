@@ -4,7 +4,7 @@ import { StyleGuide } from '../../../StyleGuide';
 export const StyledButtonContainer = styled.View`
     height: auto;
     width: 60%;
-    margin: 2px;
+    margin: ${StyleGuide.MarginXSmall};
     align-self: center;
 `;
 
@@ -14,7 +14,7 @@ export const StyledButton = styled.TouchableOpacity`
     background-color: ${StyleGuide.PrimaryColor};
     border-radius: 6px;
     height: 50px;
-    padding: 6px;
+    padding: ${StyleGuide.MarginSmall};
     justify-content:center;
     flex-direction: row;
 `;

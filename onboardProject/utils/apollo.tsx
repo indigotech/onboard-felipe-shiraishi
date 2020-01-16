@@ -43,6 +43,7 @@ export const queryUsers = async (offset: number) => {
                     nodes{
                         name
                         email
+                        id
                     }
                 }
             }`
@@ -54,13 +55,8 @@ export const queryUsers = async (offset: number) => {
         else if (token){
             const context = mountContext(token)
             const result = await client.query({ query: query, context: context })
-            try{
-                const data = result.data.Users.nodes
-                return data
-            }
-            catch (error){
-                return error
-            }
+            const data = result.data.Users.nodes
+            return data
         }
         
     }

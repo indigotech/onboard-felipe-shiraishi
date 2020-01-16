@@ -8,7 +8,7 @@ import FabButton from '../atomic/atm/atm.fab/fab.component';
 import { ColorPropType, Alert } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { StyleGuide } from '../StyleGuide';
-import { goToAddUser } from '../utils/navigation';
+import { goToAddUser, goToUserDetail } from '../utils/navigation';
 
 export interface RequestHeaders{
     Authorization: string
@@ -48,6 +48,10 @@ export const UsersListPage = () =>
     const [offset, onOffsetChange] = React.useState(10);
     const [error, onErrorLoad] = React.useState<Error>();
 
+    const handleListEntryClick = (id: number) => {
+        goToUserDetail(id)
+    }
+
     useEffect(() => {
         queryUsers(0).then(result => onDataChange(result)).catch(error => onErrorLoad(error));
     },[]);
@@ -63,7 +67,7 @@ export const UsersListPage = () =>
         else{
             return (
                 PageContainerContent(
-                    <List data={data} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
+                    <List data={data} onClickEntry={handleListEntryClick} loadMoreData={() => updateContent(offset, data, onDataChange, onOffsetChange)}></List>)
                 )
         }
     }

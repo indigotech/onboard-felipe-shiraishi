@@ -3,7 +3,7 @@ import { StyleGuide } from '../../../StyleGuide';
 
 export const StyledPageContainer = styled.View`
     flex: 1;
-    padding: 16px;
+    padding: ${StyleGuide.MarginMedium};
     justify-content: center;
     align-content: center;
     background-color: ${StyleGuide.BackgroundColor};

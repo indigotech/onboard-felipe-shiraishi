@@ -3,12 +3,14 @@ import {Navigation} from "react-native-navigation"
 import LoginPage from "../pages/LoginPage"
 import UsersListPage from "../pages/UsersListPage"
 import CreateUserPage from "../pages/CreateUserPage"
+import UserDetailsPage from "../pages/UserDetailsPage"
 import { Alert } from "react-native"
 
 export const registerScreens = () => {
     Navigation.registerComponent('LoginScreen', () => LoginPage)
     Navigation.registerComponent('UsersListScreen', () => UsersListPage)
     Navigation.registerComponent('CreateUserScreen', () => CreateUserPage)
+    Navigation.registerComponent('UserDetailScreen', () => UserDetailsPage)
 }
 
 export const goToUsersList = () => {
@@ -38,4 +40,16 @@ export const goToAddUser = () => {
 
 export const returnToList = () => {
     Navigation.pop('CreateUserScreen')
+}
+
+export const goToUserDetail = (id: number) => {
+    Navigation.push('UsersListScreen', {
+        component: {
+          name: 'UserDetailScreen',
+          id: 'UserDetailScreen',
+          passProps:{
+            id: id
+        }
+        }
+      })
 }
