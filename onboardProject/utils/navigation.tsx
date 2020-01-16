@@ -9,8 +9,6 @@ export const registerScreens = () => {
     Navigation.registerComponent('LoginScreen', () => LoginPage)
     Navigation.registerComponent('UsersListScreen', () => UsersListPage)
     Navigation.registerComponent('CreateUserScreen', () => CreateUserPage)
-
-    console.log("Todas as telas foram registradas")
 }
 
 export const goToUsersList = () => {
@@ -36,4 +34,8 @@ export const goToAddUser = () => {
           id: 'CreateUserScreen'
         }
       })
+}
+
+export const returnToList = () => {
+    Navigation.pop('CreateUserScreen')
 }

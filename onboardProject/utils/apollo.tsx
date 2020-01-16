@@ -29,7 +29,7 @@ export const fetchData = async (key:string) => {
     catch(error){}
 };
 
-const mountContext = (token:string) => {
+export const mountContext = (token:string) => {
     return{
         headers: {
             Authorization: token
