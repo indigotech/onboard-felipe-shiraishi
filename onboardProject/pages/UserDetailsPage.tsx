@@ -1,5 +1,5 @@
 import React, { useEffect, SetStateAction, useState } from 'react';
-import {H1, H2, InputLabel} from '../atomic/atm/atm.typo/typo.style'
+import {H1, H2, InputLabel, Body} from '../atomic/atm/atm.typo/typo.style'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import { ColorPropType, Alert, RefreshControlBase } from 'react-native';
 import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
@@ -24,13 +24,13 @@ export const UserDetailsPage = (id:number) =>
             <PageContainer>
                 <H1>{data.name}</H1>
                 <H2>Email</H2>
-                <InputLabel>{data.email}</InputLabel>
+                <Body>{data.email}</Body>
                 <H2>CPF</H2>
-                <InputLabel>{data.cpf}</InputLabel>
+                <Body>{data.cpf}</Body>
                 <H2>Data de Nascimento</H2>
-                <InputLabel>{data.birthDate}</InputLabel>
+                <Body>{data.birthDate}</Body>
                 <H2>Role</H2>
-                <InputLabel>{data.role}</InputLabel>
+                <Body>{data.role}</Body>
             </PageContainer>
         )
     }
