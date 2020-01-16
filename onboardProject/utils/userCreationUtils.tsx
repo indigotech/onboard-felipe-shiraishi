@@ -1,5 +1,5 @@
 import {userInput} from "../pages/CreateUserPage"
-import { fetchData, mountContext, client } from "./apollo"
+import { fetchData, client } from "./apollo"
 import gql from "graphql-tag"
 
 

@@ -1,13 +1,11 @@
 import { ApolloClient, HttpLink, InMemoryCache, gql, createHttpLink, ApolloLink } from "@apollo/client";
 import { AsyncStorage } from "react-native";
-import { ListProps } from "atomic/atm/atm.list/list.component";
 import { setContext } from "apollo-link-context"
 
 const GRAPHQL_URL = "https://tq-template-server-sample.herokuapp.com/graphql"
 
 const authContext = setContext(async (_, {headers}) => {
     const token = await fetchData('token');
-    console.log(token)
     return {
         headers:{
             ...headers,
@@ -76,7 +74,6 @@ export const queryUsers = async (offset: number) => {
         
     }
     catch(error){
-        console.log(error)
         return error
     }
 }

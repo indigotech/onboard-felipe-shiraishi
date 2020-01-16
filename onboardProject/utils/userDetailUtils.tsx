@@ -1,4 +1,4 @@
-import { fetchData, mountContext, client } from "./apollo"
+import { fetchData, client } from "./apollo"
 import gql from "graphql-tag"
 
 export const mountUserDetailQuery = (id:number) => {

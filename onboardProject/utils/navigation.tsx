@@ -4,7 +4,6 @@ import LoginPage from "../pages/LoginPage"
 import UsersListPage from "../pages/UsersListPage"
 import CreateUserPage from "../pages/CreateUserPage"
 import UserDetailsPage from "../pages/UserDetailsPage"
-import { Alert } from "react-native"
 
 export const registerScreens = () => {
     Navigation.registerComponent('LoginScreen', () => LoginPage)
