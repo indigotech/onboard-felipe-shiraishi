@@ -31,18 +31,12 @@ export const storeData = async (key:string, value:string) => {
 };
 
 export const fetchToken = async () => {
-    try{
-        const value = await AsyncStorage.getItem("token");
-        if (value !== null) {
-            return value;
-        }
-        else{
-            throw "Inexistent key"
-        }
+    const value = await AsyncStorage.getItem("token");
+    if (value !== null) {
+        return value;
     }
-    catch(error)
-    {
-        throw (error)
+    else{
+        throw "Inexistent key"
     }
 };
 
