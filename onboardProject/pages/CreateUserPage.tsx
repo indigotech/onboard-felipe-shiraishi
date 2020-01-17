@@ -1,16 +1,9 @@
 import React, { useEffect, SetStateAction, useState } from 'react';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
-import List, { ListProps } from '../atomic/atm/atm.list/list.component';
-import { queryUsers } from '../utils/apollo';
-import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
-import FabButton from '../atomic/atm/atm.fab/fab.component';
-import { ColorPropType, Alert, RefreshControlBase } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { StyleGuide } from '../StyleGuide';
+import { Alert } from 'react-native';
 import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
-import { placeholder } from '@babel/types';
 import { validateBirthDate, validateEmail, validatePassword, validateCPF } from '../utils/validationUtils';
 import { formatsBirthDate } from '../utils/validationUtils'
 import { requestUserCreation } from '../utils/userCreationUtils'

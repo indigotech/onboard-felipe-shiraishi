@@ -1,7 +1,5 @@
 import React from 'react'
 import { StyledFabContainer, StyledFabButton, StyledFabText } from './fab.style'
-import LoadingIcon from '../atm.loadingIcon/loadingIcon.component'
-import { Color } from 'csstype';
 
 export interface FabProps 
 {

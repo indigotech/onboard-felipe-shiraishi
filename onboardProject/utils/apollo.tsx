@@ -1,13 +1,27 @@
-import { ApolloClient, HttpLink, InMemoryCache, gql } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, gql, createHttpLink, ApolloLink } from "@apollo/client";
 import { AsyncStorage } from "react-native";
-import { ListProps } from "atomic/atm/atm.list/list.component";
+import { setContext } from "apollo-link-context"
+
+const GRAPHQL_URL = "https://tq-template-server-sample.herokuapp.com/graphql"
+
+const authContext = setContext(async (_, {headers}) => {
+    const token = await fetchToken();
+    return {
+        headers:{
+            ...headers,
+            Authorization: (token ? token : "")
+        }
+    }
+    
+})
+
+const httpLink = createHttpLink({uri: GRAPHQL_URL});
 
 export const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: new HttpLink({
-        uri: "https://tq-template-server-sample.herokuapp.com/graphql"
-    })
+    link: authContext.concat(httpLink),
+    cache: new InMemoryCache()
 });
+
 
 export const storeData = async (key:string, value:string) => {
     try{
@@ -16,49 +30,33 @@ export const storeData = async (key:string, value:string) => {
     catch(error){}
 };
 
-export const fetchData = async (key:string) => {
-    try{
-        const value = await AsyncStorage.getItem(key);
-        if (value !== null) {
-            return value;
-        }
-        else{
-            return "Inexistent key"
-        }
+export const fetchToken = async () => {
+    const value = await AsyncStorage.getItem("token");
+    if (value !== null) {
+        return value;
     }
-    catch(error){}
+    else{
+        throw "Inexistent key"
+    }
 };
 
-export const mountContext = (token:string) => {
-    return{
-        headers: {
-            Authorization: token
+const mountQueryUsers = (offset: number) => {
+    return (gql`{Users(offset:${offset}, limit:10){
+            nodes{
+                name
+                email
+                id
+            }
         }
-    }
+    }`)
 }
 
 export const queryUsers = async (offset: number) => {
     try{
-        const query = gql`{Users(offset:${offset}, limit:10){
-                    nodes{
-                        name
-                        email
-                        id
-                    }
-                }
-            }`
-
-        const token = await fetchData("token")
-        if(token === "Inexistent token"){
-           throw Error("Inexistent token")
-        }
-        else if (token){
-            const context = mountContext(token)
-            const result = await client.query({ query: query, context: context })
-            const data = result.data.Users.nodes
-            return data
-        }
-        
+        const query = mountQueryUsers(offset)
+        const result = await client.query({ query: query })
+        const data = result.data.Users.nodes
+        return data
     }
     catch(error){
         return error

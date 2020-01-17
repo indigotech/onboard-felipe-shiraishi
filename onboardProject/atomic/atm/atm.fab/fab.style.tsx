@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Color } from 'csstype';
 import { StyleGuide } from '../../../StyleGuide';
 
 interface FabStyleProps {

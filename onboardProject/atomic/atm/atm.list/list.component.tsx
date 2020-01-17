@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StyledList, StyledListEntry } from './list.style';
 import { H2, Subline } from '../atm.typo/typo.style';
-import { queryUsers } from '../../../utils/apollo';
 
 export interface ListProps {
     data: ListEntryKeyProps[];

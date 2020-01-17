@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyledTextInput, StyledInputContainer, StyledPickerInput } from './input.style';
-import { H2, InputLabel } from '../atm.typo/typo.style'
-import { Alert, Picker } from 'react-native';
+import { InputLabel } from '../atm.typo/typo.style'
+import { Picker } from 'react-native';
 
 
 export interface InputProps 
