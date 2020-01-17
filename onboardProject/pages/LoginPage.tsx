@@ -6,7 +6,7 @@ import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.compone
 import { validateEmail, validatePassword } from '../utils/validationUtils';
 import { goToUsersList } from '../utils/navigationUtils';
 import { StyleGuide } from '../StyleGuide';
-import { requestLogin } from 'controllers/userLoginController';
+import { requestLogin } from '../controllers/userLoginController';
 
 export const LoginPage = () => 
 {

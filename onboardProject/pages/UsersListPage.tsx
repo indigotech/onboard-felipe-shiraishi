@@ -6,7 +6,7 @@ import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
 import FabButton from '../atomic/atm/atm.fab/fab.component';
 import { StyleGuide } from '../StyleGuide';
 import { goToAddUser, goToUserDetail } from '../utils/navigationUtils';
-import { queryUsers } from 'controllers/userListController';
+import { queryUsers } from '../controllers/userListController';
 
 export interface RequestHeaders{
     Authorization: string
