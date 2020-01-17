@@ -4,7 +4,6 @@ import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import { validateEmail, validatePassword, requestLogin } from '../utils/validationUtils';
-import { useNavigation } from '../hooks/hooks';
 import { goToUsersList } from '../utils/navigation';
 import { StyleGuide } from '../StyleGuide';
 
@@ -15,46 +14,53 @@ export const LoginPage = () =>
     const [loading, setLoad] = React.useState(false);
 
     // Forms error filling
-    const [emailError, setEmailError] = React.useState(false);
-    const [passwordError, setPasswordError] = React.useState(false);
-    const [authError, setAuthError] = React.useState(false);
+    const [emailError, setEmailError] = React.useState("");
+    const [passwordError, setPasswordError] = React.useState("");
+    const [authError, setAuthError] = React.useState("");
 
-    const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
-    const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
-    const [authErrorMessage, setAuthErrorMessage] = React.useState("");
+    enum Fields {Email, Password}
 
-    const navigator = useNavigation();
+    const validatorFunction = (field:Fields|string) => {
+        if (field === Fields.Email) { return validateEmail }
+        else { return validatePassword }
+    }
+
+    const errorSetter = (field:Fields|string) => {
+        if (field === Fields.Email) { return setEmailError }
+        else { return setPasswordError }
+    } 
+
+    const stateGetter = (field:Fields|string) => {
+        if (field === Fields.Email) { return email  }
+        else { return password }
+    }
+
+    const validateForm = () => {
+        Object.values(Fields).forEach(field => {
+            const validator = validatorFunction(field)
+            const toValidate = stateGetter(field)
+            const setError = errorSetter(field)
+            setError(validator(toValidate))
+        });
+    }
 
     const handleButtonTap = async () => {
         try{
-            try{
-                validateEmail(email)
-                setEmailError(false);
-            }
-            catch (message){
-                setEmailErrorMessage(message)
-                setEmailError(true);
-            }
+            validateForm()
 
-            try{
-                validatePassword(password)
-                setPasswordError(false);
-            }
-            catch (message){
-                setPasswordErrorMessage(message)
-                setPasswordError(true)
+            if (emailError !== "" || passwordError !== ""){
+                throw Error
             }
     
             setLoad(true);
             await requestLogin(email, password)
             setLoad(false)
-            setAuthError(false)
+            setAuthError("")
             goToUsersList()
 
         } catch (error)
         {
-            setAuthError(true)
-            setAuthErrorMessage(error)
+            setAuthError("Não foi possível realizar login")
             setLoad(false)
         }
     }
@@ -65,27 +71,22 @@ export const LoginPage = () =>
             <TextField 
                 label = {"Nome de usuário"}
                 placeholder={"email@provider.com"}
-                error={emailError}
-                errorMessage={emailErrorMessage}
+                errorMessage={emailError}
                 onChange={(text:string) => setEmail(text.toLowerCase())}
                 />
             <TextField 
                 label = {"Senha"}
                 secure={true}
                 placeholder={"Senha"}
-                error={passwordError}
-                errorMessage={passwordErrorMessage}
+                errorMessage={passwordError}
                 onChange={(text:string) => setPassword(text)}
                 />
             <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap} 
-            colorError={StyleGuide.errorColor} displayError={authError}
-            errorMessage={authErrorMessage} />
+            colorError={StyleGuide.errorColor} 
+            errorMessage={authError} />
         </PageContainer>
     )
 };
 
-LoginPage.navigationOptions = {
-    title: 'LoginPage',
-  };
 export default LoginPage
 

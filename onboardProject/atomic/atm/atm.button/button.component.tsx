@@ -8,7 +8,6 @@ export interface PrimaryButtonProps
     onClick: (event:any) => void;
     label: string;
     loading?: boolean;
-    displayError: boolean;
     colorError: string;
     errorMessage: string;
     
@@ -23,7 +22,7 @@ export const PrimaryButton = (props:PrimaryButtonProps) =>
                 {props.loading && <LoadingIcon />}
                 <StyledText>{props.label}</StyledText>
             </StyledButton>
-            <Caption display={props.displayError} color={props.colorError}>{props.errorMessage}</Caption>
+            <Caption display={(props.errorMessage !== "") ? true : false} color={props.colorError}>{props.errorMessage}</Caption>
         </StyledButtonContainer>
     )
 }; export default PrimaryButton

@@ -72,9 +72,5 @@ export const UsersListPage = () =>
     
     else{ return PageContainerContent(<LoadingIcon/>) }
 };
-
-UsersListPage.navigationOptions = {
-    title: 'UsersListPage',
-  };
 export default UsersListPage
 

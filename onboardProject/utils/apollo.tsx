@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, gql, createHttpLink, ApolloLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, gql, createHttpLink } from "@apollo/client";
 import { AsyncStorage } from "react-native";
 import { setContext } from "apollo-link-context"
 
@@ -27,9 +27,12 @@ export const storeData = async (key:string, value:string) => {
     try{
         await AsyncStorage.setItem(key, value);
     }
-    catch(error){}
+    catch(error){
+        throw error
+    }
 };
 
+<<<<<<< HEAD
 export const fetchToken = async () => {
     const value = await AsyncStorage.getItem("token");
     if (value !== null) {
@@ -50,6 +53,17 @@ const mountQueryUsers = (offset: number) => {
         }
     }`)
 }
+=======
+export const fetchData = async (key:string) => {
+    const value = await AsyncStorage.getItem(key);
+    if (value !== null) {
+        return value;
+    }
+    else{
+        throw "Inexistent key"
+    }
+};
+>>>>>>> Refactors validation process
 
 export const queryUsers = async (offset: number) => {
     try{

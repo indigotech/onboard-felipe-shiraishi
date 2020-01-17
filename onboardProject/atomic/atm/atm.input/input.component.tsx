@@ -10,7 +10,6 @@ export interface InputProps
     placeholder?: string;
     label: string;
     secure?: boolean;
-    error: boolean;
     errorMessage: string;
     onChange: (input:string) => void;
 }
@@ -21,12 +20,13 @@ export interface PickerProps{
     categories: string[];
 }
 
-const InputLayoutComponent = (InputType:JSX.Element, label:string, error: boolean, errorMessage: string) => {
+const InputLayoutComponent = (InputType:JSX.Element, label:string, errorMessage: string) => {
     return(
         <StyledInputContainer>
             <InputLabel>{label}</InputLabel>
             {InputType}
-            <Caption color={StyleGuide.errorColor} display={error}>{errorMessage}</Caption>
+            <Caption color={StyleGuide.errorColor} display={(errorMessage !== "") ? true : false}>
+                {errorMessage}</Caption>
         </StyledInputContainer>
     )
 }
@@ -47,7 +47,7 @@ export const PickerField = (props:PickerProps) => {
 
                 {categories()}
             </StyledPickerInput>
-            , props.inputProps.label, false, ""
+            , props.inputProps.label, ""
         )
     )
 }
@@ -59,9 +59,9 @@ export const TextField = (props:InputProps) =>
             <StyledTextInput
                 secureTextEntry = {props.secure}
                 placeholder = {props.placeholder}
-                error={props.error}
+                error={(props.errorMessage !== "") ? true : false}
                 onChangeText = { props.onChange }
-            />, props.label, props.error, props.errorMessage)
+            />, props.label, props.errorMessage)
  
     )
 }; export default TextField

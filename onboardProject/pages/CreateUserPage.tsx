@@ -1,10 +1,9 @@
-import React, { useEffect, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
-import { Alert } from 'react-native';
 import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
-import { validateBirthDate, validateEmail, validatePassword, validateCPF } from '../utils/validationUtils';
+import { validateBirthDate, validateEmail, validatePassword, validateCPF, validateName } from '../utils/validationUtils';
 import { formatsBirthDate } from '../utils/validationUtils'
 import { requestUserCreation } from '../utils/userCreationUtils'
 import { returnToList } from '../utils/navigation';
@@ -33,74 +32,64 @@ export const CreateUserPage = () =>
     const [loading, setLoading] = useState(false)
 
     // Forms error filling
-    const [nameError, setNameError] = React.useState(false);
-    const [emailError, setEmailError] = React.useState(false);
-    const [passwordError, setPasswordError] = React.useState(false);
-    const [creationError, setCreationError] = React.useState(false);
-    const [CPFError, setCPFError] = React.useState(false);
-    const [birthError, setBirthError] = React.useState(false);
+    const [nameError, setNameError] = React.useState("");
+    const [emailError, setEmailError] = React.useState("");
+    const [passwordError, setPasswordError] = React.useState("");
+    const [creationError, setCreationError] = React.useState("");
+    const [CPFError, setCPFError] = React.useState("");
+    const [birthError, setBirthError] = React.useState("");
 
-    const [nameErrorMessage, setNameErrorMessage] = React.useState("");
-    const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
-    const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
-    const [creationErrorMessage, setCreationErrorMessage] = React.useState("");
-    const [CPFErrorMessage, setCPFErrorMessage] = React.useState("");
-    const [birthErrorMessage, setBirthErrorMessage] = React.useState("");
+    enum Fields {Email, Password, CPF, Birth, Name}
+
+    const validatorFunction = (field:Fields|string) => {
+        if (field === Fields.Email) { return validateEmail }
+        else if (field === Fields.Password) { return validatePassword }
+        else if (field === Fields.CPF) { return validateCPF }
+        else if (field === Fields.Name) { return validateName }
+        else { return validateBirthDate }
+    }
+
+    const errorSetter = (field:Fields|string) => {
+        if (field === Fields.Email) { return setEmailError }
+        else if (field === Fields.Password) { return setPasswordError }
+        else if (field === Fields.CPF) { return setCPFError }
+        else if (field === Fields.Name) { return setNameError }
+        else { return setBirthError }
+    } 
+
+    const stateGetter = (field:Fields|string) => {
+        if (field === Fields.Email) { return Email  }
+        else if (field === Fields.Password) { return Password }
+        else if (field === Fields.CPF) { return CPF }
+        else if (field === Fields.Name) { return Name }
+        else { return BirthDate }
+    }
+
+    const validateForm = () => {
+        Object.values(Fields).forEach(field => {
+            const validator = validatorFunction(field)
+            const toValidate = stateGetter(field)
+            const setError = errorSetter(field)
+            setError(validator(toValidate))
+        });
+    }
 
     const handleButtonTap = async () => {
         try{
-            try{
-                validateEmail(Email)
-                setEmailError(false);
-            }
-            catch (message){
-                setEmailErrorMessage(message)
-                setEmailError(true);
-            }
+            validateForm()
 
-            try{
-                validatePassword(Password)
-                setPasswordError(false);
-                
-            }
-            catch (message){
-                setPasswordErrorMessage(message)
-                setPasswordError(true)
-            }
-            try{
-                validateCPF(CPF)
-                setCPFError(false);
-            }
-            catch (message){
-                setCPFErrorMessage(message)
-                setCPFError(true);
-            }
-
-            try{
-                validateBirthDate(BirthDate)
-                setBirthError(false);
-            }
-            catch (message){
-                setBirthErrorMessage(message)
-                setBirthError(true)
-            }
-
-            if (Name === ""){
-                setNameError(true)
-                setNameErrorMessage("Nome vazio")
-            }
-            else{
-                setNameError(false)
-            }
-
-            if (emailError || passwordError || CPFError || birthError || nameError){
+            if (emailError !== "" || 
+            passwordError !== "" || 
+            CPFError !== "" || 
+            birthError !== "" || 
+            nameError !== "" ) {
                 throw Error
             }
 
-            setCreationError(false)
+            setCreationError("")
             setLoading(true);
         
-            const result = await requestUserCreation({
+            await requestUserCreation({
                 name: Name,
                 email: Email,
                 password: Password,
@@ -113,8 +102,7 @@ export const CreateUserPage = () =>
             setLoading(false)
         } catch (error)
         {
-            setCreationError(true)
-            setCreationErrorMessage("Não foi possível criar um usuário")
+            setCreationError("Não foi possível criar um usuário")
             setLoading(false)
         }
     }
@@ -123,17 +111,17 @@ export const CreateUserPage = () =>
         <PageContainer>
             <ScrollView>
                 <H1>Criar Usuário</H1>
-                <TextField error={nameError} errorMessage={nameErrorMessage} label="Nome" placeholder="Nome" onChange={(text:string) => setName(text)}/>
-                <TextField error={emailError} errorMessage={emailErrorMessage} label="Email" placeholder="Email" onChange={(text:string) => setEmail(text)}/>
-                <TextField error={passwordError} errorMessage={passwordErrorMessage} label="Senha" placeholder="Senha" secure={true} onChange={(text:string) => setPassword(text)}/>
-                <TextField error={CPFError} errorMessage={CPFErrorMessage} label="CPF" placeholder="CPF" onChange={(text:string) => setCPF(text)}/>
-                <TextField error={birthError} errorMessage={birthErrorMessage} label="Data de nascimento" placeholder="YYYY/MM/DD" onChange={(text:string) => setBirthDate(formatsBirthDate(text))}/>
-                <PickerField inputProps={{error:false, errorMessage:"", label:"Role", placeholder:roles.user, onChange:
+                <TextField errorMessage={nameError} label="Nome" placeholder="Nome" onChange={(text:string) => setName(text)}/>
+                <TextField errorMessage={emailError} label="Email" placeholder="Email" onChange={(text:string) => setEmail(text)}/>
+                <TextField errorMessage={passwordError} label="Senha" placeholder="Senha" secure={true} onChange={(text:string) => setPassword(text)}/>
+                <TextField errorMessage={CPFError} label="CPF" placeholder="CPF" onChange={(text:string) => setCPF(text)}/>
+                <TextField errorMessage={birthError} label="Data de nascimento" placeholder="YYYY/MM/DD" onChange={(text:string) => setBirthDate(formatsBirthDate(text))}/>
+                <PickerField inputProps={{ errorMessage:"", label:"Role", placeholder:roles.user, onChange:
                     (text:string) => {setRole(text)}
                 }} 
                 categories={Object.values(roles)} selected={Role}/>
-                <PrimaryButton displayError={creationError} colorError={StyleGuide.errorColor}
-                errorMessage={creationErrorMessage}
+                <PrimaryButton colorError={StyleGuide.errorColor}
+                errorMessage={creationError}
                 loading={loading} onClick={handleButtonTap} label="Criar Usuário"/>
             </ScrollView>
         </PageContainer>
