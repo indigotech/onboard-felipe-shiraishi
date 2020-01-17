@@ -18,27 +18,30 @@ export const LoginPage = () =>
     const [passwordError, setPasswordError] = React.useState("");
     const [authError, setAuthError] = React.useState("");
 
-    enum Fields {Email, Password}
+    const Fields = {
+        Email: "Email", 
+        Password: "Password"
+    }
 
-    const validatorFunction = (field:Fields|string) => {
+    const validatorFunction = (field:string) => {
         if (field === Fields.Email) { return validateEmail }
         else { return validatePassword }
     }
 
-    const errorSetter = (field:Fields|string) => {
+    const errorSetter = (field:string) => {
         if (field === Fields.Email) { return setEmailError }
         else { return setPasswordError }
     } 
 
-    const stateGetter = (field:Fields|string) => {
-        if (field === Fields.Email) { return email  }
-        else { return password }
+    const formsState = {
+        Email: email,
+        Password: password
     }
 
     const validateForm = () => {
         Object.values(Fields).forEach(field => {
             const validator = validatorFunction(field)
-            const toValidate = stateGetter(field)
+            const toValidate = formsState[field]
             const setError = errorSetter(field)
             setError(validator(toValidate))
         });

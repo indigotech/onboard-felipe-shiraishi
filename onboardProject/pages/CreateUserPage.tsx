@@ -39,9 +39,15 @@ export const CreateUserPage = () =>
     const [CPFError, setCPFError] = React.useState("");
     const [birthError, setBirthError] = React.useState("");
 
-    enum Fields {Email, Password, CPF, Birth, Name}
+    const Fields = {
+        Email: "Email", 
+        Password: "Password", 
+        CPF: "CPF", 
+        Birth: "CPF", 
+        Name: "Name"
+    }
 
-    const validatorFunction = (field:Fields|string) => {
+    const validatorFunction = (field:string) => {
         if (field === Fields.Email) { return validateEmail }
         else if (field === Fields.Password) { return validatePassword }
         else if (field === Fields.CPF) { return validateCPF }
@@ -49,7 +55,7 @@ export const CreateUserPage = () =>
         else { return validateBirthDate }
     }
 
-    const errorSetter = (field:Fields|string) => {
+    const errorSetter = (field:string) => {
         if (field === Fields.Email) { return setEmailError }
         else if (field === Fields.Password) { return setPasswordError }
         else if (field === Fields.CPF) { return setCPFError }
@@ -57,18 +63,18 @@ export const CreateUserPage = () =>
         else { return setBirthError }
     } 
 
-    const stateGetter = (field:Fields|string) => {
-        if (field === Fields.Email) { return Email  }
-        else if (field === Fields.Password) { return Password }
-        else if (field === Fields.CPF) { return CPF }
-        else if (field === Fields.Name) { return Name }
-        else { return BirthDate }
+    const formsState = {
+        Email: Email,
+        Password: Password,
+        CPF: CPF,
+        Name: Name,
+        BirthDate: BirthDate
     }
 
     const validateForm = () => {
         Object.values(Fields).forEach(field => {
             const validator = validatorFunction(field)
-            const toValidate = stateGetter(field)
+            const toValidate = formsState[field]
             const setError = errorSetter(field)
             setError(validator(toValidate))
         });
@@ -120,9 +126,10 @@ export const CreateUserPage = () =>
                     (text:string) => {setRole(text)}
                 }} 
                 categories={Object.values(roles)} selected={Role}/>
-                <PrimaryButton colorError={StyleGuide.errorColor}
-                errorMessage={creationError}
-                loading={loading} onClick={handleButtonTap} label="Criar Usuário"/>
+                <PrimaryButton 
+                    colorError={StyleGuide.errorColor}
+                    errorMessage={creationError}
+                    loading={loading} onClick={handleButtonTap} label="Criar Usuário"/>
             </ScrollView>
         </PageContainer>
     )
