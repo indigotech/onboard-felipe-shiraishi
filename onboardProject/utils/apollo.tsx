@@ -32,7 +32,6 @@ export const storeData = async (key:string, value:string) => {
     }
 };
 
-<<<<<<< HEAD
 export const fetchToken = async () => {
     const value = await AsyncStorage.getItem("token");
     if (value !== null) {
@@ -53,17 +52,6 @@ const mountQueryUsers = (offset: number) => {
         }
     }`)
 }
-=======
-export const fetchData = async (key:string) => {
-    const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
-        return value;
-    }
-    else{
-        throw "Inexistent key"
-    }
-};
->>>>>>> Refactors validation process
 
 export const queryUsers = async (offset: number) => {
     try{
