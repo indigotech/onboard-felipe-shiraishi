@@ -22,27 +22,27 @@ export const LoginPage = () =>
         Email: "Email", 
         Password: "Password"
     }
-
-    const validatorFunction = (field:string) => {
-        if (field === Fields.Email) { return validateEmail }
-        else { return validatePassword }
-    }
-
-    const errorSetter = (field:string) => {
-        if (field === Fields.Email) { return setEmailError }
-        else { return setPasswordError }
-    } 
-
+    
     const formsState = {
         Email: email,
         Password: password
     }
 
+    const errorSetters = {
+        Email: setEmailError,
+        Password: setPasswordError
+    }
+
+    const validators = {
+        Email: validateEmail,
+        Password: validatePassword
+    }
+
     const validateForm = () => {
         Object.values(Fields).forEach(field => {
-            const validator = validatorFunction(field)
+            const validator = validators[field]
             const toValidate = formsState[field]
-            const setError = errorSetter(field)
+            const setError = errorSetters[field]
             setError(validator(toValidate))
         });
     }

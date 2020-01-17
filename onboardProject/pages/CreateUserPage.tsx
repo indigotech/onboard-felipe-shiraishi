@@ -43,25 +43,9 @@ export const CreateUserPage = () =>
         Email: "Email", 
         Password: "Password", 
         CPF: "CPF", 
-        Birth: "CPF", 
+        Birth: "BirthDate", 
         Name: "Name"
     }
-
-    const validatorFunction = (field:string) => {
-        if (field === Fields.Email) { return validateEmail }
-        else if (field === Fields.Password) { return validatePassword }
-        else if (field === Fields.CPF) { return validateCPF }
-        else if (field === Fields.Name) { return validateName }
-        else { return validateBirthDate }
-    }
-
-    const errorSetter = (field:string) => {
-        if (field === Fields.Email) { return setEmailError }
-        else if (field === Fields.Password) { return setPasswordError }
-        else if (field === Fields.CPF) { return setCPFError }
-        else if (field === Fields.Name) { return setNameError }
-        else { return setBirthError }
-    } 
 
     const formsState = {
         Email: Email,
@@ -70,12 +54,26 @@ export const CreateUserPage = () =>
         Name: Name,
         BirthDate: BirthDate
     }
+    const validators = {
+        Email: validateEmail,
+        Password: validatePassword,
+        CPF: validateCPF,
+        Name: validateName,
+        BirthDate: validateBirthDate
+    }
+    const errorSetters = {
+        Email: setEmailError,
+        Password: setPasswordError,
+        CPF: setCPFError,
+        Name: setNameError,
+        BirthDate: setBirthError
+    }
 
     const validateForm = () => {
         Object.values(Fields).forEach(field => {
-            const validator = validatorFunction(field)
+            const validator = validators[field]
             const toValidate = formsState[field]
-            const setError = errorSetter(field)
+            const setError = errorSetters[field]
             setError(validator(toValidate))
         });
     }
