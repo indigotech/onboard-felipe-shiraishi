@@ -3,9 +3,10 @@ import PrimaryButton from '../atomic/atm/atm.button/button.component';
 import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
-import { validateEmail, validatePassword, requestLogin } from '../utils/validationUtils';
-import { goToUsersList } from '../utils/navigation';
+import { validateEmail, validatePassword } from '../utils/validationUtils';
+import { goToUsersList } from '../utils/navigationUtils';
 import { StyleGuide } from '../StyleGuide';
+import { requestLogin } from 'controllers/userLoginController';
 
 export const LoginPage = () => 
 {
@@ -22,7 +23,7 @@ export const LoginPage = () =>
         Email: "Email", 
         Password: "Password"
     }
-    
+
     const formsState = {
         Email: email,
         Password: password

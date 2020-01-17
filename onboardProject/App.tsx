@@ -15,7 +15,7 @@ import LoginPage from './pages/LoginPage';
 import UsersListPage from './pages/UsersListPage';
 import { ApolloProvider } from '@apollo/client';
 import { Navigation } from 'react-native-navigation';
-import { goToUsersList, registerScreens } from './utils/navigation'
+import { goToUsersList, registerScreens } from './utils/navigationUtils'
 
 //registerScreens();
 

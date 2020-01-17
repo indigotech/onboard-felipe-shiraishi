@@ -1,5 +1,5 @@
 import {userInput} from "../pages/CreateUserPage"
-import { fetchToken, client } from "./apollo"
+import { client } from "../utils/apolloUtils"
 import gql from "graphql-tag"
 
 

@@ -5,8 +5,8 @@ import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
 import { validateBirthDate, validateEmail, validatePassword, validateCPF, validateName } from '../utils/validationUtils';
 import { formatsBirthDate } from '../utils/validationUtils'
-import { requestUserCreation } from '../utils/userCreationUtils'
-import { returnToList } from '../utils/navigation';
+import { requestUserCreation } from '../controllers/userCreationController'
+import { returnToList } from '../utils/navigationUtils';
 import { StyleGuide } from '../StyleGuide';
 import { ScrollView } from 'react-native-gesture-handler';
 
