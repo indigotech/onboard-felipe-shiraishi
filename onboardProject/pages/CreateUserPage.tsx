@@ -5,8 +5,8 @@ import { TextField, PickerField } from '../atomic/atm/atm.input/input.component'
 import PrimaryButton from '../atomic/atm/atm.button/button.component'
 import { validateBirthDate, validateEmail, validatePassword, validateCPF, validateName } from '../utils/validationUtils';
 import { formatsBirthDate } from '../utils/validationUtils'
-import { requestUserCreation } from '../utils/userCreationUtils'
-import { returnToList } from '../utils/navigation';
+import { requestUserCreation } from '../controllers/userCreationController'
+import { returnToList } from '../utils/navigationUtils';
 import { StyleGuide } from '../StyleGuide';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -69,7 +69,7 @@ export const CreateUserPage = () =>
         BirthDate: setBirthError
     }
 
-    const validateForm = () => {
+    const validateForm = (): boolean => {
         Object.values(Fields).forEach(field => {
             const validator = validators[field]
             const toValidate = formsState[field]
@@ -79,36 +79,23 @@ export const CreateUserPage = () =>
     }
 
     const handleButtonTap = async () => {
-        try{
-            validateForm()
-
-            if (emailError !== "" || 
-            passwordError !== "" || 
-            CPFError !== "" || 
-            birthError !== "" || 
-            nameError !== "" ) {
-                throw Error
-            }
-
-            setCreationError("")
-            setLoading(true);
-        
-            await requestUserCreation({
-                name: Name,
-                email: Email,
-                password: Password,
-                birthDate: BirthDate,
-                cpf: CPF,
-                role: Role
-            })
-
-            returnToList();
-            setLoading(false)
-        } catch (error)
-        {
-            setCreationError("Não foi possível criar um usuário")
-            setLoading(false)
+        if (!validateForm()) {
+            return;
         }
+
+        setLoading(true);
+    
+        await requestUserCreation({
+            name: Name,
+            email: Email,
+            password: Password,
+            birthDate: BirthDate,
+            cpf: CPF,
+            role: Role
+        })
+
+        returnToList();
+        setLoading(false)
     }
 
     return (

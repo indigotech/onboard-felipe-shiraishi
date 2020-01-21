@@ -20,6 +20,22 @@ export interface PickerProps{
     categories: string[];
 }
 
+interface InputComponentProps {
+    children: JSX.Element;
+    label: string;
+    errorMessage: string;
+}
+
+const InputComponent: React.FC<InputComponentProps> = (props: InputComponentProps) => {
+    return (
+        <StyledInputContainer>
+            <InputLabel>{props.label}</InputLabel>
+            {props.children}
+            {!!props.errorMessage && <Caption color={StyleGuide.errorColor}>{props.errorMessage}</Caption>}
+        </StyledInputContainer>
+    );
+}
+
 const InputLayoutComponent = (InputType:JSX.Element, label:string, errorMessage: string) => {
     return(
         <StyledInputContainer>
@@ -39,16 +55,14 @@ export const PickerField = (props:PickerProps) => {
     }
 
     return(
-        InputLayoutComponent(
+        <InputComponent label={props.inputProps.label} errorMessage=''>
             <StyledPickerInput
                 selectedValue={props.selected}
                 onValueChange={props.inputProps.onChange}
                 mode="dropdown">
-
                 {categories()}
             </StyledPickerInput>
-            , props.inputProps.label, ""
-        )
+        </InputComponent>
     )
 }
 

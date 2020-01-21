@@ -2,7 +2,7 @@ import React, { useEffect, SetStateAction, useState } from 'react';
 import {H1, H2, Body} from '../atomic/atm/atm.typo/typo.style'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import { userInput } from './CreateUserPage';
-import {queryUser} from '../utils/userDetailUtils'
+import {queryUser} from '../controllers/userDetailController'
 import LoadingIcon from '../atomic/atm/atm.loadingIcon/loadingIcon.component';
 
 export const UserDetailsPage = (id:number) => 
