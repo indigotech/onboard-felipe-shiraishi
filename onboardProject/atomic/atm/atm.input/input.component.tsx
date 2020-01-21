@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyledTextInput, StyledInputContainer, StyledPickerInput } from './input.style';
-import { InputLabel } from '../atm.typo/typo.style'
+import { InputLabel, Subline, Caption } from '../atm.typo/typo.style'
 import { Picker } from 'react-native';
+import { StyleGuide } from '../../../StyleGuide';
 
 
 export interface InputProps 
@@ -9,6 +10,7 @@ export interface InputProps
     placeholder?: string;
     label: string;
     secure?: boolean;
+    errorMessage: string;
     onChange: (input:string) => void;
 }
 
@@ -18,11 +20,13 @@ export interface PickerProps{
     categories: string[];
 }
 
-const InputLayoutComponent = (InputType:JSX.Element, label:string) => {
+const InputLayoutComponent = (InputType:JSX.Element, label:string, errorMessage: string) => {
     return(
         <StyledInputContainer>
             <InputLabel>{label}</InputLabel>
             {InputType}
+            <Caption color={StyleGuide.errorColor} display={(errorMessage !== "") ? true : false}>
+                {errorMessage}</Caption>
         </StyledInputContainer>
     )
 }
@@ -43,7 +47,7 @@ export const PickerField = (props:PickerProps) => {
 
                 {categories()}
             </StyledPickerInput>
-            , props.inputProps.label
+            , props.inputProps.label, ""
         )
     )
 }
@@ -55,8 +59,9 @@ export const TextField = (props:InputProps) =>
             <StyledTextInput
                 secureTextEntry = {props.secure}
                 placeholder = {props.placeholder}
+                error={(props.errorMessage !== "") ? true : false}
                 onChangeText = { props.onChange }
-            />, props.label)
+            />, props.label, props.errorMessage)
  
     )
 }; export default TextField

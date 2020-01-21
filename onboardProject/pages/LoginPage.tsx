@@ -4,32 +4,66 @@ import {H1} from '../atomic/atm/atm.typo/typo.style'
 import { TextField } from '../atomic/atm/atm.input/input.component'
 import PageContainer from '../atomic/atm/atm.pagecontainer/pagecontainer.component';
 import { validateEmail, validatePassword, requestLogin } from '../utils/validationUtils';
-import { useNavigation } from '../hooks/hooks';
-import { Alert } from 'react-native';
 import { goToUsersList } from '../utils/navigation';
+import { StyleGuide } from '../StyleGuide';
 
 export const LoginPage = () => 
 {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [loading, setLoad] = React.useState(false)
+    const [loading, setLoad] = React.useState(false);
 
-    const navigator = useNavigation();
+    // Forms error filling
+    const [emailError, setEmailError] = React.useState("");
+    const [passwordError, setPasswordError] = React.useState("");
+    const [authError, setAuthError] = React.useState("");
+
+    const Fields = {
+        Email: "Email", 
+        Password: "Password"
+    }
+    
+    const formsState = {
+        Email: email,
+        Password: password
+    }
+
+    const errorSetters = {
+        Email: setEmailError,
+        Password: setPasswordError
+    }
+
+    const validators = {
+        Email: validateEmail,
+        Password: validatePassword
+    }
+
+    const validateForm = () => {
+        Object.values(Fields).forEach(field => {
+            const validator = validators[field]
+            const toValidate = formsState[field]
+            const setError = errorSetters[field]
+            setError(validator(toValidate))
+        });
+    }
 
     const handleButtonTap = async () => {
         try{
-            const validEmail = validateEmail(email)
-            const validPassword = validatePassword(password)
+            validateForm()
+
+            if (emailError !== "" || passwordError !== ""){
+                throw Error
+            }
     
             setLoad(true);
-            if (validEmail && validPassword){
-                await requestLogin(email, password)
-                setLoad(false)
-                goToUsersList()
-        }
+            await requestLogin(email, password)
+            setLoad(false)
+            setAuthError("")
+            goToUsersList()
+
         } catch (error)
         {
-            Alert.alert(error)
+            setAuthError("Não foi possível realizar login")
             setLoad(false)
         }
     }
@@ -40,21 +74,22 @@ export const LoginPage = () =>
             <TextField 
                 label = {"Nome de usuário"}
                 placeholder={"email@provider.com"}
+                errorMessage={emailError}
                 onChange={(text:string) => setEmail(text.toLowerCase())}
                 />
             <TextField 
                 label = {"Senha"}
                 secure={true}
                 placeholder={"Senha"}
+                errorMessage={passwordError}
                 onChange={(text:string) => setPassword(text)}
                 />
-            <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap}/>
+            <PrimaryButton loading={loading} label="Log in" onClick={handleButtonTap} 
+            colorError={StyleGuide.errorColor} 
+            errorMessage={authError} />
         </PageContainer>
     )
 };
 
-LoginPage.navigationOptions = {
-    title: 'LoginPage',
-  };
 export default LoginPage
 

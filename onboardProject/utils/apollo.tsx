@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, gql, createHttpLink, ApolloLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, gql, createHttpLink } from "@apollo/client";
 import { AsyncStorage } from "react-native";
 import { setContext } from "apollo-link-context"
 
@@ -27,7 +27,9 @@ export const storeData = async (key:string, value:string) => {
     try{
         await AsyncStorage.setItem(key, value);
     }
-    catch(error){}
+    catch(error){
+        throw error
+    }
 };
 
 export const fetchToken = async () => {
