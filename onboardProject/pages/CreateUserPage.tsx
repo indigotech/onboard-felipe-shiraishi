@@ -69,7 +69,7 @@ export const CreateUserPage = () =>
         BirthDate: setBirthError
     }
 
-    const validateForm = () => {
+    const validateForm = (): boolean => {
         Object.values(Fields).forEach(field => {
             const validator = validators[field]
             const toValidate = formsState[field]
@@ -79,36 +79,23 @@ export const CreateUserPage = () =>
     }
 
     const handleButtonTap = async () => {
-        try{
-            validateForm()
-
-            if (emailError !== "" || 
-            passwordError !== "" || 
-            CPFError !== "" || 
-            birthError !== "" || 
-            nameError !== "" ) {
-                throw Error
-            }
-
-            setCreationError("")
-            setLoading(true);
-        
-            await requestUserCreation({
-                name: Name,
-                email: Email,
-                password: Password,
-                birthDate: BirthDate,
-                cpf: CPF,
-                role: Role
-            })
-
-            returnToList();
-            setLoading(false)
-        } catch (error)
-        {
-            setCreationError("Não foi possível criar um usuário")
-            setLoading(false)
+        if (!validateForm()) {
+            return;
         }
+
+        setLoading(true);
+    
+        await requestUserCreation({
+            name: Name,
+            email: Email,
+            password: Password,
+            birthDate: BirthDate,
+            cpf: CPF,
+            role: Role
+        })
+
+        returnToList();
+        setLoading(false)
     }
 
     return (

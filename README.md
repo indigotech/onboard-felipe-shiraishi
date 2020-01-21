@@ -50,7 +50,7 @@ Caso o projeto tenha de ser desenvolvido em qualquer outro framework de desenvol
 
 Caso o projeto altere os parâmetros de comunicação com o servidor, é esta camada que deve ser alterada. i.e.: Adicionar novos endpoints, queries ou novas mutations.
 
-- Casos de Uso : Responsável por providenciar a comunicação da aplicação com o banco externo e outras funcionalidades uteis em outros contextos do projeto.
+- Casos de Uso: Responsável por providenciar a comunicação da aplicação com o banco externo e outras funcionalidades uteis em outros contextos do projeto.
 
     - apolloUtils : Define a comunicação com um servidor apollo
 
@@ -60,4 +60,4 @@ Caso o projeto altere os parâmetros de comunicação com o servidor, é esta ca
 
 Caso o projeto altere o seu paradigma de comunicação i.e.: de graphQL para REST, é esta camada que deverá ser alterada, ou altere regras de validação e formas de acesso aos dados locais, é esta camada que deve ser alterada.
 
-- Entidade : Não se encontra neste repositório. É a parte do servidor com a qual este projeto frontend se comunica.
+- Entidade: Não se encontra neste repositório. É a parte do servidor com a qual este projeto frontend se comunica.
